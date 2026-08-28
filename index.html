@@ -3,420 +3,787 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Una pequeña aventura 🐾</title>
+<title>Una pequeña aventura para Fernanda 🐾</title>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Quicksand:wght@400;500;600;700&family=Press+Start+2P&display=swap');
 
-* {
-    box-sizing: border-box;
+*{
+    box-sizing:border-box;
 }
 
-html, body {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    min-height: 100%;
+html{
+    scroll-behavior:smooth;
 }
 
-body {
-    background: #000;
-    font-family: Georgia, serif;
-    overflow-x: hidden;
+body{
+    margin:0;
+    overflow-x:hidden;
+    background:#080709;
+    color:#59434b;
+    font-family:'Quicksand',sans-serif;
+}
+
+button{
+    font-family:inherit;
+}
+
+.hidden{
+    display:none!important;
 }
 
 /* =========================
    PANTALLA DE CARGA
 ========================= */
 
-#carga {
-    position: fixed;
-    inset: 0;
-    z-index: 9999;
-    background: #000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    color: white;
-    transition: opacity 1s ease;
+#loading{
+    position:fixed;
+    inset:0;
+    z-index:9999;
+    background:#050506;
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    overflow:hidden;
 }
 
-.carga-contenido {
-    width: 90%;
-    max-width: 500px;
-    text-align: center;
+.load-wrap{
+    width:min(90vw,650px);
+    height:100%;
+    position:relative;
 }
 
-.gato-carga {
-    font-size: 65px;
-    margin-bottom: 25px;
-    animation: caminar 1s infinite alternate;
+.loading-title{
+    position:absolute;
+    top:14%;
+    width:100%;
+    font-family:'Press Start 2P',monospace;
+    font-size:clamp(12px,3vw,20px);
+    color:#fff2c4;
+    letter-spacing:2px;
 }
 
-.puntos {
-    display: flex;
-    justify-content: center;
-    gap: 13px;
-    margin-bottom: 25px;
+.load-cat{
+    position:absolute;
+    left:8%;
+    bottom:39%;
+    width:75px;
+    height:75px;
+    animation:caminar 5s linear forwards;
+    filter:drop-shadow(0 0 12px white);
 }
 
-.punto {
-    width: 10px;
-    height: 10px;
-    background: white;
-    border-radius: 50%;
-    opacity: .2;
-    animation: punto 1.5s infinite;
+.pixel-cat{
+    position:relative;
+    display:block;
+    width:58px;
+    height:58px;
+    margin:8px;
+    background:white;
+    image-rendering:pixelated;
 }
 
-.punto:nth-child(2) {
-    animation-delay: .2s;
+.pixel-cat .cara{
+    position:absolute;
+    left:7px;
+    top:16px;
+    width:44px;
+    height:35px;
+    background:#fff;
 }
 
-.punto:nth-child(3) {
-    animation-delay: .4s;
+.pixel-cat .oreja{
+    position:absolute;
+    top:5px;
+    width:18px;
+    height:20px;
+    background:#fff;
 }
 
-.punto:nth-child(4) {
-    animation-delay: .6s;
+.pixel-cat .oreja.izq{
+    left:5px;
+    clip-path:polygon(0 100%,15% 0,100% 100%);
 }
 
-.punto:nth-child(5) {
-    animation-delay: .8s;
+.pixel-cat .oreja.der{
+    right:5px;
+    clip-path:polygon(0 100%,85% 0,100% 100%);
 }
 
-.barra {
-    width: 100%;
-    height: 5px;
-    background: #222;
-    border-radius: 20px;
-    overflow: hidden;
+.pixel-cat .ojo{
+    position:absolute;
+    top:28px;
+    width:5px;
+    height:5px;
+    background:#222;
 }
 
-.progreso {
-    width: 0%;
-    height: 100%;
-    background: white;
-    animation: cargar 5s linear forwards;
+.pixel-cat .ojo1{
+    left:17px;
 }
 
-.bienvenida {
-    display: none;
-    font-size: 38px;
-    font-weight: bold;
-    animation: aparecer 1.5s ease forwards;
+.pixel-cat .ojo2{
+    right:17px;
+}
+
+.pixel-cat .nariz{
+    position:absolute;
+    left:26px;
+    top:36px;
+    width:5px;
+    height:4px;
+    background:#e7a5b8;
+}
+
+.pixel-cat .cola{
+    position:absolute;
+    right:-18px;
+    bottom:4px;
+    width:25px;
+    height:8px;
+    background:white;
+    transform:rotate(-35deg);
+    transform-origin:left center;
+}
+
+.spark{
+    position:absolute;
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    background:#ffe9a8;
+    box-shadow:0 0 15px 5px #ffe9a8;
+    animation:brillar 1s infinite alternate;
+}
+
+.s1{left:22%;bottom:42%}
+.s2{left:37%;bottom:39%;animation-delay:.2s}
+.s3{left:53%;bottom:42%;animation-delay:.4s}
+.s4{left:68%;bottom:40%;animation-delay:.6s}
+.s5{left:83%;bottom:43%;animation-delay:.8s}
+
+.load-track{
+    position:absolute;
+    left:10%;
+    bottom:31%;
+    width:80%;
+    height:11px;
+    background:#171515;
+    border:1px solid #d7b86a;
+    border-radius:30px;
+    overflow:hidden;
+}
+
+.load-bar{
+    width:0;
+    height:100%;
+    background:linear-gradient(
+        90deg,
+        #9e702c,
+        #ffe9a8,
+        #c89a48
+    );
+    box-shadow:0 0 18px #e7c76e;
+    animation:cargar 5s linear forwards;
+}
+
+.paw-end{
+    position:absolute;
+    right:7%;
+    bottom:35%;
+    font-size:28px;
+    opacity:0;
+    animation:aparecerPata 5s linear forwards;
+}
+
+#welcome{
+    position:absolute;
+    inset:0;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    opacity:0;
+    transform:scale(.8);
+}
+
+#welcome h1{
+    font-family:'Cormorant Garamond',serif;
+    font-size:clamp(45px,10vw,80px);
+    color:#f6df9c;
+    text-shadow:0 0 25px #b98b3e;
+    margin:0;
+}
+
+#welcome p{
+    color:#eee;
+    font-size:17px;
+}
+
+.gold-btn,
+.pink-btn{
+    border:0;
+    border-radius:999px;
+    padding:14px 30px;
+    font-weight:700;
+    font-size:16px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.gold-btn{
+    background:linear-gradient(135deg,#d9b45d,#9e702c);
+    color:white;
+}
+
+.pink-btn{
+    background:linear-gradient(135deg,#eaa0b7,#b85c7a);
+    color:white;
+}
+
+.gold-btn:hover,
+.pink-btn:hover{
+    transform:translateY(-4px) scale(1.04);
 }
 
 /* =========================
    JUEGO
 ========================= */
 
-#juego {
-    display: none;
-    min-height: 100vh;
+#game{
+    min-height:100vh;
     background:
         linear-gradient(
-            rgba(255,240,210,.35),
-            rgba(255,240,210,.35)
-        ),
-        linear-gradient(135deg, #b8dfaa, #d9f0bd, #f7ddb2);
-    position: relative;
-    overflow: hidden;
+            #f5dcae 0%,
+            #d8e9bd 45%,
+            #9bc589 100%
+        );
+    position:relative;
 }
 
-/* decoración */
-
-.luz {
-    position: absolute;
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    background: rgba(255,255,255,.75);
-    animation: flotar 4s infinite ease-in-out;
+#game:before{
+    content:"";
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    opacity:.55;
+    background:
+        radial-gradient(circle at 20% 20%,white 0 2px,transparent 3px),
+        radial-gradient(circle at 75% 30%,white 0 2px,transparent 3px),
+        radial-gradient(circle at 50% 80%,#fff8 0 2px,transparent 3px);
+    background-size:180px 180px;
+    animation:flotar 9s linear infinite;
 }
 
-.luz:nth-child(1) {
-    top: 15%;
-    left: 10%;
+.topbar{
+    position:fixed;
+    top:12px;
+    left:12px;
+    right:12px;
+    z-index:100;
+    display:flex;
+    justify-content:space-between;
+    pointer-events:none;
 }
 
-.luz:nth-child(2) {
-    top: 30%;
-    right: 15%;
-    animation-delay: 1s;
+.topbar button{
+    pointer-events:auto;
+    border:0;
+    background:#fffdf3dd;
+    border-radius:18px;
+    padding:10px 13px;
+    cursor:pointer;
+    box-shadow:0 5px 18px #6c593522;
 }
 
-.luz:nth-child(3) {
-    bottom: 25%;
-    left: 20%;
-    animation-delay: 2s;
+.scene{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:80px 18px 35px;
 }
 
-.luz:nth-child(4) {
-    bottom: 15%;
-    right: 25%;
-    animation-delay: 3s;
+.card{
+    width:min(920px,100%);
+    background:#fffdf4ee;
+    border-radius:35px;
+    padding:32px 22px;
+    box-shadow:0 22px 70px #53664240;
+    text-align:center;
+    animation:entrarEscena .8s ease;
+}
+
+.title{
+    font-family:'Cormorant Garamond',serif;
+    font-size:clamp(35px,7vw,55px);
+    color:#8c4d5e;
+    margin:5px 0 12px;
+}
+
+.text{
+    font-size:17px;
+    line-height:1.8;
+}
+
+.dialogue{
+    max-width:700px;
+    margin:20px auto;
+    padding:22px;
+    background:white;
+    border:1px solid #ead9d0;
+    border-radius:25px;
+    line-height:1.75;
+    font-size:17px;
+    box-shadow:0 8px 25px #0000000b;
+}
+
+.cat-avatar{
+    font-size:105px;
+    display:inline-block;
+    animation:respirar 2.2s infinite;
+}
+
+.small-cat{
+    font-size:80px;
+}
+
+.choice-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:13px;
+    max-width:800px;
+    margin:22px auto;
+}
+
+.choice{
+    border:1px solid #ead3ca;
+    background:#fff;
+    border-radius:22px;
+    padding:20px 10px;
+    cursor:pointer;
+    font-size:16px;
+    min-height:100px;
+    transition:.3s;
+}
+
+.choice:hover{
+    transform:translateY(-6px);
+    box-shadow:0 14px 28px #76505a22;
+}
+
+.path{
+    min-height:200px;
+    border-radius:30px;
+    padding:25px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+}
+
+.flowers{
+    background:linear-gradient(135deg,#fff0f3,#dff1c8);
+}
+
+.forest{
+    background:linear-gradient(135deg,#dceccf,#91bd9b);
+}
+
+.night{
+    background:linear-gradient(135deg,#28234c,#10192f);
+    color:white;
+}
+
+.progress{
+    height:9px;
+    max-width:600px;
+    margin:12px auto;
+    background:#eadfd7;
+    border-radius:20px;
+    overflow:hidden;
+}
+
+.progress span{
+    display:block;
+    width:0;
+    height:100%;
+    background:#c78b52;
+    transition:.4s;
 }
 
 /* =========================
-   ESCENA
+   MAPA
 ========================= */
 
-.escena {
-    width: 100%;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 35px 20px;
+#map{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:8px;
+    max-width:750px;
+    margin:25px auto;
 }
 
-.panel {
-    width: 100%;
-    max-width: 700px;
-    min-height: 600px;
-    background: rgba(255,255,255,.88);
-    border-radius: 35px;
-    padding: 30px 22px;
-    box-shadow: 0 20px 60px rgba(70,90,50,.25);
-    text-align: center;
-    position: relative;
-    animation: subir .8s ease;
+.node{
+    padding:13px 4px;
+    border-radius:15px;
+    background:#e6dfd5;
+    color:#777;
+    font-size:12px;
 }
 
-.gato {
-    font-size: 110px;
-    margin-top: 20px;
-    animation: respirar 2s infinite ease-in-out;
+.node.done{
+    background:#b9d69e;
+    color:#35532d;
 }
 
-.nombre-gato {
-    font-size: 16px;
-    color: #777;
-    margin-top: -10px;
+.node.open{
+    background:#f3d59a;
+    color:#704f24;
 }
 
-.burbuja {
-    position: relative;
-    margin: 25px auto;
-    max-width: 550px;
-    padding: 20px;
-    background: white;
-    border-radius: 25px;
-    box-shadow: 0 8px 25px rgba(0,0,0,.08);
-    font-size: 19px;
-    line-height: 1.7;
-}
-
-.burbuja::after {
-    content: "";
-    position: absolute;
-    bottom: -15px;
-    left: 50%;
-    transform: translateX(-50%);
-    border-left: 15px solid transparent;
-    border-right: 15px solid transparent;
-    border-top: 15px solid white;
-}
-
-.titulo {
-    font-size: 30px;
-    color: #8b5965;
-    margin-bottom: 10px;
-}
-
-.subtitulo {
-    color: #777;
-    line-height: 1.6;
-}
-
-.boton {
-    display: block;
-    width: 100%;
-    max-width: 400px;
-    margin: 15px auto;
-    padding: 16px 20px;
-    border: none;
-    border-radius: 30px;
-    background: #d88fa3;
-    color: white;
-    font-size: 17px;
-    font-family: Georgia, serif;
-    cursor: pointer;
-    transition: .3s;
-    box-shadow: 0 7px 18px rgba(160,80,100,.2);
-}
-
-.boton:hover {
-    transform: translateY(-3px) scale(1.02);
-}
-
-.boton:active {
-    transform: scale(.95);
+.node.lock{
+    opacity:.4;
 }
 
 /* =========================
    BOLSITO
 ========================= */
 
-.bolsito {
-    position: absolute;
-    right: 25px;
-    top: 25px;
-    background: #b87955;
-    color: white;
-    padding: 10px 13px;
-    border-radius: 15px;
-    font-size: 20px;
-    cursor: pointer;
-    transition: .3s;
+.inventory{
+    max-width:500px;
+    margin:20px auto;
+    padding:20px;
+    border-radius:25px;
+    background:#fff7ef;
+    box-shadow:0 10px 30px #0002;
 }
 
-.bolsito:hover {
-    transform: scale(1.1);
+.item{
+    background:#fff;
+    padding:12px;
+    margin:7px 0;
+    border-radius:13px;
 }
 
-.inventario {
-    display: none;
-    position: absolute;
-    right: 20px;
-    top: 75px;
-    width: 200px;
-    background: white;
-    border-radius: 20px;
-    padding: 15px;
-    box-shadow: 0 10px 30px rgba(0,0,0,.2);
-    z-index: 20;
+/* =========================
+   PERSONALIZACIÓN
+========================= */
+
+.customizer{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+    align-items:center;
 }
 
-.inventario h3 {
-    margin-top: 0;
-    color: #8b5965;
+.cat-preview{
+    min-height:240px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:130px;
+    position:relative;
 }
 
-.objeto {
-    padding: 7px;
-    border-radius: 10px;
-    background: #fff2f5;
-    margin: 5px 0;
+.accessory{
+    position:absolute;
+    pointer-events:none;
+}
+
+.bow{
+    top:5px;
+    right:calc(50% - 60px);
+    font-size:43px;
+}
+
+.shoes{
+    bottom:25px;
+    font-size:28px;
+    letter-spacing:25px;
+}
+
+.eye-accessory{
+    position:absolute;
+    top:95px;
+    left:calc(50% - 24px);
+    font-size:22px;
+}
+
+.options{
+    background:#fff7f1;
+    border-radius:25px;
+    padding:20px;
+    text-align:left;
+}
+
+.options h3{
+    color:#8c4d5e;
+    font-family:'Cormorant Garamond',serif;
+    font-size:27px;
+}
+
+.opts{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+}
+
+.opt{
+    border:1px solid #ead3ca;
+    background:white;
+    border-radius:14px;
+    padding:10px;
+    cursor:pointer;
+}
+
+.opt.selected{
+    outline:3px solid #e0a0ae;
+}
+
+/* =========================
+   ESTRELLAS
+========================= */
+
+.stars-game{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:25px;
+    max-width:650px;
+    margin:25px auto;
+}
+
+.star{
+    font-size:38px;
+    cursor:pointer;
+    animation:brillar 1s infinite alternate;
+}
+
+.star.found{
+    opacity:.15;
+    transform:scale(.7);
+    pointer-events:none;
+}
+
+/* =========================
+   OBJETOS
+========================= */
+
+.objects{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:10px;
+    max-width:600px;
+    margin:20px auto;
+}
+
+.object-btn{
+    font-size:32px;
+    border:0;
+    background:white;
+    border-radius:18px;
+    padding:15px;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.object-btn:hover{
+    transform:scale(1.1);
+}
+
+/* =========================
+   CARTA
+========================= */
+
+.letter-wrap{
+    max-width:760px;
+    margin:auto;
+    position:relative;
+}
+
+.hello{
+    position:absolute;
+    right:0;
+    top:-30px;
+    font-size:60px;
+    z-index:2;
+}
+
+.letter{
+    background:#fffaf0;
+    padding:35px 28px;
+    border-radius:8px;
+    box-shadow:0 15px 40px #49352a25;
+    text-align:left;
+    line-height:1.9;
+    font-family:'Cormorant Garamond',serif;
+    font-size:21px;
+    border:1px solid #ead8b9;
+}
+
+.letter hr{
+    border:0;
+    border-top:1px solid #dbc9a7;
+    margin:18px 0;
+}
+
+.type{
+    white-space:pre-wrap;
+    min-height:400px;
+}
+
+/* =========================
+   REGALO
+========================= */
+
+.gift{
+    display:inline-block;
+    font-size:115px;
+    cursor:pointer;
+    animation:regalo 1.8s ease-in-out infinite;
+    filter:drop-shadow(0 15px 15px #8a506033);
+}
+
+.confetti{
+    position:fixed;
+    pointer-events:none;
+    font-size:25px;
+    animation:confeti 2.5s linear forwards;
+    z-index:999;
+}
+
+/* =========================
+   TRANSICIÓN
+========================= */
+
+#transition{
+    position:fixed;
+    inset:0;
+    z-index:9000;
+    background:#24171c;
+    opacity:0;
+    pointer-events:none;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#ffe8a5;
+    font-size:55px;
+}
+
+#transition.go{
+    animation:transicion .8s ease;
 }
 
 /* =========================
    ANIMACIONES
 ========================= */
 
-@keyframes cargar {
-    from {
-        width: 0%;
-    }
+@keyframes cargar{
+    to{width:100%}
+}
 
-    to {
-        width: 100%;
+@keyframes caminar{
+    from{left:8%}
+    to{left:82%}
+}
+
+@keyframes aparecerPata{
+    0%,85%{opacity:0}
+    100%{opacity:1}
+}
+
+@keyframes brillar{
+    from{
+        opacity:.35;
+        transform:scale(.8);
+    }
+    to{
+        opacity:1;
+        transform:scale(1.25);
     }
 }
 
-@keyframes punto {
-
-    0%,100% {
-        opacity: .2;
-        transform: scale(1);
-    }
-
-    50% {
-        opacity: 1;
-        transform: scale(1.5);
+@keyframes respirar{
+    50%{
+        transform:translateY(-7px) scale(1.03);
     }
 }
 
-@keyframes caminar {
-
-    from {
-        transform: translateX(-20px);
+@keyframes entrarEscena{
+    from{
+        opacity:0;
+        transform:translateY(30px) scale(.96);
     }
-
-    to {
-        transform: translateX(20px);
-    }
-}
-
-@keyframes aparecer {
-
-    from {
-        opacity: 0;
-        transform: scale(.8);
-    }
-
-    to {
-        opacity: 1;
-        transform: scale(1);
+    to{
+        opacity:1;
+        transform:none;
     }
 }
 
-@keyframes subir {
-
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
+@keyframes flotar{
+    to{
+        background-position:0 180px;
     }
 }
 
-@keyframes respirar {
-
-    0%,100% {
-        transform: translateY(0);
-    }
-
-    50% {
-        transform: translateY(-8px);
+@keyframes regalo{
+    50%{
+        transform:scale(1.08) rotate(2deg);
     }
 }
 
-@keyframes flotar {
-
-    0%,100% {
-        transform: translateY(0);
-        opacity: .4;
+@keyframes confeti{
+    from{
+        transform:translateY(-10vh) rotate(0);
+        opacity:1;
     }
-
-    50% {
-        transform: translateY(-25px);
-        opacity: 1;
+    to{
+        transform:translateY(110vh) rotate(500deg);
+        opacity:0;
     }
+}
+
+@keyframes transicion{
+    0%{opacity:0}
+    45%{opacity:1}
+    100%{opacity:0}
 }
 
 /* =========================
    MÓVIL
 ========================= */
 
-@media (max-width: 500px) {
+@media(max-width:650px){
 
-    .panel {
-        min-height: 620px;
+    .choice-grid,
+    .customizer{
+        grid-template-columns:1fr;
     }
 
-    .gato {
-        font-size: 90px;
+    .objects{
+        grid-template-columns:repeat(3,1fr);
     }
 
-    .titulo {
-        font-size: 25px;
+    #map{
+        grid-template-columns:repeat(3,1fr);
     }
 
-    .burbuja {
-        font-size: 17px;
+    .cat-preview{
+        min-height:200px;
     }
 
-    .bienvenida {
-        font-size: 30px;
+    .hello{
+        font-size:45px;
+    }
+
+    .letter{
+        font-size:19px;
+        padding:25px 20px;
     }
 }
-
 </style>
 </head>
 
@@ -426,475 +793,1815 @@ body {
      CARGA
 ========================= -->
 
-<div id="carga">
+<div id="loading">
 
-    <div class="carga-contenido">
+    <div class="loading-title">
+        PREPARANDO LA AVENTURA...
+    </div>
 
-        <div class="gato-carga">🐈</div>
+    <div class="spark s1"></div>
+    <div class="spark s2"></div>
+    <div class="spark s3"></div>
+    <div class="spark s4"></div>
+    <div class="spark s5"></div>
 
-        <div class="puntos">
+    <div class="load-cat">
+        <span class="pixel-cat">
+            <i class="oreja izq"></i>
+            <i class="oreja der"></i>
+            <i class="cara"></i>
+            <i class="ojo ojo1"></i>
+            <i class="ojo ojo2"></i>
+            <i class="nariz"></i>
+            <i class="cola"></i>
+        </span>
+    </div>
 
-            <div class="punto"></div>
-            <div class="punto"></div>
-            <div class="punto"></div>
-            <div class="punto"></div>
-            <div class="punto"></div>
+    <div class="load-track">
+        <div class="load-bar"></div>
+    </div>
 
-        </div>
+    <div class="paw-end">
+        🐾
+    </div>
 
-        <div class="barra">
-            <div class="progreso"></div>
-        </div>
+    <div id="welcome">
 
-        <h1 class="bienvenida">
-            Bienvenida a la aventura ✨
-        </h1>
+        <h1>Bienvenida al juego</h1>
+
+        <p>
+            Una pequeña aventura hecha especialmente para ti ✨
+        </p>
+
+        <button class="gold-btn" onclick="startGame()">
+            Continuar 🐾
+        </button>
 
     </div>
 
 </div>
 
+<!-- TRANSICIÓN -->
+
+<div id="transition">
+    🐾
+</div>
 
 <!-- =========================
      JUEGO
 ========================= -->
 
-<div id="juego">
+<main id="game" class="hidden">
 
-    <div class="luz"></div>
-    <div class="luz"></div>
-    <div class="luz"></div>
-    <div class="luz"></div>
+    <div class="topbar">
 
-    <div class="escena">
+        <button onclick="showInventory()">
+            🎒 Bolsito
+        </button>
 
-        <div class="panel">
+        <button onclick="showMap()">
+            🗺️ Mapa
+        </button>
 
-            <button class="bolsito" onclick="abrirBolso()">
-                🎒
-            </button>
+    </div>
 
-            <div id="inventario" class="inventario">
+    <section class="scene">
 
-                <h3>Mi bolsito 🐾</h3>
+        <div class="card">
 
-                <div id="objetos">
-                    Está vacío...
-                </div>
-
+            <div class="cat-avatar">
+                🐱💛
             </div>
 
+            <h1 class="title">
+                ¡Hola, Fernanda! 🌷
+            </h1>
 
-            <div class="gato">
-                🐱
-            </div>
+            <div class="dialogue">
 
-            <div class="nombre-gato">
-                Tu pequeño compañero 💛
-            </div>
+                <p>
+                    Hola, Fernanda.
+                </p>
 
+                <p>
+                    Soy la gatita que va a acompañarte durante
+                    esta pequeña aventura. 🐾
+                </p>
 
-            <div class="burbuja">
+                <p>
+                    Este es un <strong>juego interactivo</strong>
+                    hecho especialmente para ti.
+                </p>
 
-                <h2 class="titulo">
-                    ¡Hola! 🐾
-                </h2>
+                <p>
+                    Aquí podrás tomar decisiones, explorar lugares,
+                    encontrar objetos y conocer a alguien muy especial.
+                </p>
 
-                <p class="subtitulo">
-
-                    Este será un pequeño juego interactivo.
-                    Tú tendrás que tomar decisiones para
-                    ayudarme a avanzar por esta aventura.
-
-                    <br><br>
-
-                    Algunas decisiones cambiarán lo que ocurra
-                    después... así que piensa bien. 👀
-
+                <p>
+                    Así que piensa bien tus decisiones...
+                    porque algunas pueden cambiar lo que encuentres. 👀
                 </p>
 
             </div>
 
-
-            <button class="boton" onclick="comenzar()">
-                Comenzar aventura ✨
+            <button class="pink-btn" onclick="gardenScene()">
+                Pulsa aquí para comenzar 🌸
             </button>
 
         </div>
 
-    </div>
+    </section>
 
-</div>
-
+</main>
 
 <script>
 
 /* =========================
-   PANTALLA DE CARGA
+   ESTADO DEL JUEGO
 ========================= */
 
-setTimeout(function() {
+const state = {
 
-    const carga = document.getElementById("carga");
+    friendship:0,
 
-    carga.style.opacity = "0";
+    stars:0,
 
-    setTimeout(function() {
+    gift:null,
 
-        carga.style.display = "none";
+    inventory:[],
 
-        document.getElementById("juego").style.display = "block";
+    bow:"🎀",
 
-    }, 1000);
+    shoes:"👟",
 
-}, 5500);
+    eyes:"👀"
 
+};
+
+/* =========================
+   INICIO
+========================= */
+
+setTimeout(()=>{
+
+    document.getElementById("welcome").style.animation =
+        "aparecer .8s ease forwards";
+
+},5200);
+
+function startGame(){
+
+    document.getElementById("loading").style.display="none";
+
+    document.getElementById("game").classList.remove("hidden");
+
+    window.scrollTo({
+        top:0,
+        behavior:"instant"
+    });
+
+}
+
+/* =========================
+   TRANSICIONES
+========================= */
+
+function transition(callback){
+
+    const t=document.getElementById("transition");
+
+    t.classList.remove("go");
+
+    void t.offsetWidth;
+
+    t.classList.add("go");
+
+    setTimeout(callback,400);
+
+}
+
+/* =========================
+   RENDER
+========================= */
+
+function render(content){
+
+    document.getElementById("game").innerHTML=`
+
+        <div class="topbar">
+
+            <button onclick="showInventory()">
+                🎒 Bolsito
+            </button>
+
+            <button onclick="showMap()">
+                🗺️ Mapa
+            </button>
+
+        </div>
+
+        <section class="scene">
+
+            <div class="card">
+
+                ${content}
+
+            </div>
+
+        </section>
+    `;
+
+}
+
+/* =========================
+   BOTÓN DE SIGUIENTE
+========================= */
+
+function nextButton(text,func){
+
+    return `
+        <br>
+        <button class="pink-btn" onclick="${func}">
+            ${text || "Pulsa aquí para continuar 🐾"}
+        </button>
+    `;
+
+}
+
+/* =========================
+   JARDÍN
+========================= */
+
+function gardenScene(){
+
+    transition(()=>{
+
+        render(`
+
+            <div class="path flowers">
+
+                <div class="cat-avatar">
+                    🐱💛
+                </div>
+
+                <h1 class="title">
+                    🌷 El jardín
+                </h1>
+
+                <p>
+                    La gatita amarilla se encuentra
+                    sentadita en medio de un jardín.
+                </p>
+
+                <p>
+                    Hay flores por todas partes
+                    y unos pequeños caminos delante de ella.
+                </p>
+
+            </div>
+
+            <div class="dialogue">
+
+                <p>
+                    De pronto escucha un pequeño sonido
+                    entre las flores...
+                </p>
+
+                <p>
+                    <strong>
+                        ¿Qué debería hacer?
+                    </strong>
+                </p>
+
+            </div>
+
+            <div class="choice-grid">
+
+                <button class="choice"
+                    onclick="gardenChoice(1)">
+                    🌸<br>
+                    Investigar las flores
+                </button>
+
+                <button class="choice"
+                    onclick="gardenChoice(2)">
+                    🐾<br>
+                    Seguir las huellas
+                </button>
+
+                <button class="choice"
+                    onclick="gardenChoice(3)">
+                    🎀<br>
+                    Mirar detrás del árbol
+                </button>
+
+            </div>
+
+        `);
+
+    });
+
+}
+
+function gardenChoice(n){
+
+    state.friendship+=5;
+
+    const texts=[
+
+        `
+        Encuentra una pequeña flor rosa.
+        Parece haber sido colocada allí
+        especialmente para ella. 🌸
+        `,
+
+        `
+        Las huellitas conducen hacia un sendero
+        que nunca había visto antes.
+        `,
+
+        `
+        Detrás del árbol encuentra un pequeño
+        bolsito vacío.
+        Parece que podría serle útil. 🎒
+        `
+
+    ];
+
+    if(n===3){
+
+        addItem("🎒","Bolsito");
+
+    }
+
+    transition(()=>{
+
+        render(`
+
+            <div class="cat-avatar">
+                🐱💛
+            </div>
+
+            <h1 class="title">
+                Algo interesante...
+            </h1>
+
+            <div class="dialogue">
+
+                <p>
+                    ${texts[n-1]}
+                </p>
+
+                <p>
+                    La aventura apenas está comenzando.
+                </p>
+
+            </div>
+
+            ${nextButton(
+                "Pulsa aquí y sigue el camino 🐾",
+                "meetCalico()"
+            )}
+
+        `);
+
+    });
+
+}
+
+/* =========================
+   ENCUENTRO
+========================= */
+
+function meetCalico(){
+
+    state.friendship+=10;
+
+    transition(()=>{
+
+        render(`
+
+            <div class="path flowers">
+
+                <div class="cat-avatar">
+                    🐱💛
+                </div>
+
+                <div class="small-cat">
+                    🐈
+                </div>
+
+            </div>
+
+            <h1 class="title">
+                🐾 Alguien apareció
+            </h1>
+
+            <div class="dialogue">
+
+                <p>
+                    Al final del sendero aparece
+                    una gatita muy especial.
+                </p>
+
+                <p>
+                    Es una <strong>gatita calico</strong>.
+                    🐈🤍🧡🖤
+                </p>
+
+                <p>
+                    Ella te mira durante unos segundos...
+                    y después mueve la cola.
+                </p>
+
+                <p>
+                    Parece que quiere saber
+                    si puede acompañarte.
+                </p>
+
+            </div>
+
+            <div class="choice-grid">
+
+                <button class="choice"
+                    onclick="calicoChoice(1)">
+                    💗<br>
+                    Saludarla
+                </button>
+
+                <button class="choice"
+                    onclick="calicoChoice(2)">
+                    🌸<br>
+                    Darle una flor
+                </button>
+
+                <button class="choice"
+                    onclick="calicoChoice(3)">
+                    🐾<br>
+                    Invitarla a caminar
+                </button>
+
+            </div>
+
+        `);
+
+    });
+
+}
+
+function calicoChoice(n){
+
+    state.friendship+=8;
+
+    const messages=[
+
+        "La calico se acerca y te da un pequeño empujoncito con la cabeza. 🥹",
+
+        "La calico recibe la flor y parece ponerse muy feliz. 🌸",
+
+        "La calico camina a tu lado como si llevaran mucho tiempo siendo amigas. 🐾"
+
+    ];
+
+    transition(()=>{
+
+        render(`
+
+            <div class="cat-avatar">
+                🐱💛 🐈
+            </div>
+
+            <h1 class="title">
+                Dos gatitas 🐾
+            </h1>
+
+            <div class="dialogue">
+
+                <p>
+                    ${messages[n-1]}
+                </p>
+
+                <p>
+                    Tal vez esta aventura
+                    sea mejor acompañada.
+                </p>
+
+            </div>
+
+            ${nextButton(
+                "Pulsa aquí para continuar ✨",
+                "choosePath()"
+            )}
+
+        `);
+
+    });
+
+}
+
+/* =========================
+   CAMINOS
+========================= */
+
+function choosePath(){
+
+    transition(()=>{
+
+        render(`
+
+            <h1 class="title">
+                🌷 Tres caminos
+            </h1>
+
+            <div class="dialogue">
+
+                <p>
+                    Las dos gatitas llegan a una
+                    bifurcación.
+                </p>
+
+                <p>
+                    Hay tres caminos.
+                    Cada uno parece esconder algo diferente.
+                </p>
+
+            </div>
+
+            <div class="choice-grid">
+
+                <button class="choice"
+                    onclick="pathChoice(1)">
+                    🌸<br>
+                    Jardín secreto
+                </button>
+
+                <button class="choice"
+                    onclick="pathChoice(2)">
+                    🌲<br>
+                    Bosque
+                </button>
+
+                <button class="choice"
+                    onclick="pathChoice(3)">
+                    ✨<br>
+                    Camino de luces
+                </button>
+
+            </div>
+
+        `);
+
+    });
+
+}
+
+function pathChoice(n){
+
+    state.friendship+=7;
+
+    const paths=[
+
+        {
+            title:"🌸 El jardín secreto",
+            text:"Las flores se abren mientras las dos gatitas avanzan."
+        },
+
+        {
+            title:"🌲 El bosque",
+            text:"Los árboles son altos y entre las ramas se ven pequeñas luces."
+        },
+
+        {
+            title:"✨ El camino de luces",
+            text:"Pequeñas luces doradas forman un sendero frente a ellas."
+        }
+
+    ];
+
+    transition(()=>{
+
+        render(`
+
+            <div class="path ${n===2?"forest":n===3?"night":"flowers"}">
+
+                <div class="cat-avatar">
+                    🐱💛 🐈
+                </div>
+
+                <h1 class="title">
+                    ${paths[n-1].title}
+                </h1>
+
+                <p>
+                    ${paths[n-1].text}
+                </p>
+
+            </div>
+
+            <div class="dialogue">
+
+                <p>
+                    Las dos siguen caminando.
+                </p>
+
+                <p>
+                    Algo les dice que todavía
+                    hay mucho por descubrir.
+                </p>
+
+            </div>
+
+            ${nextButton(
+                "Pulsa aquí para seguir 🐾",
+                "nightScene()"
+            )}
+
+        `);
+
+    });
+
+}
+
+/* =========================
+   NOCHE
+========================= */
+
+function nightScene(){
+
+    transition(()=>{
+
+        render(`
+
+            <div class="path night">
+
+                <div class="cat-avatar">
+                    🐱💛 🐈
+                </div>
+
+                <h1 class="title">
+                    🌙 Una noche tranquila
+                </h1>
+
+                <p>
+                    Finalmente llegan a un pequeño claro.
+                </p>
+
+                <p>
+                    El cielo está lleno de estrellas.
+                </p>
+
+            </div>
+
+            <div class="dialogue">
+
+                <p>
+                    La calico se sienta junto a la gatita amarilla.
+                </p>
+
+                <p>
+                    Las dos miran el cielo.
+                </p>
+
+                <p>
+                    <em>
+                        "Qué bonito..."
+                    </em>
+                </p>
+
+            </div>
+
+            <div class="choice-grid">
+
+                <button class="choice"
+                    onclick="nightChoice(1)">
+                    ⭐<br>
+                    Mirar las estrellas
+                </button>
+
+                <button class="choice"
+                    onclick="nightChoice(2)">
+                    🔥<br>
+                    Sentarse junto a la fogata
+                </button>
+
+                <button class="choice"
+                    onclick="nightChoice(3)">
+                    🌸<br>
+                    Hablar del jardín
+                </button>
+
+            </div>
+
+        `);
+
+    });
+
+}
+
+function nightChoice(n){
+
+    state.friendship+=7;
+
+    const texts=[
+
+        "Miran las estrellas y una de ellas parece brillar especialmente fuerte sobre las dos.",
+
+        "Se sientan junto a la fogata. La calico se acomoda cerquita.",
+
+        "Recuerdan el jardín y todas las cosas que encontraron durante el camino."
+
+    ];
+
+    transition(()=>{
+
+        render(`
+
+            <div class="cat-avatar">
+                🐱💛 🐈
+            </div>
+
+            <h1 class="title">
+                Una noche especial ✨
+            </h1>
+
+            <div class="dialogue">
+
+                <p>
+                    ${texts[n-1]}
+                </p>
+
+                <p>
+                    La gatita amarilla piensa:
+                </p>
+
+                <p>
+                    <em>
+                        "Es curioso... hace unas horas
+                        caminaba sola y ahora tengo compañía."
+                    </em>
+                </p>
+
+            </div>
+
+            ${nextButton(
+                "Pulsa aquí para buscar estrellas ⭐",
+                "starGame()"
+            )}
+
+        `);
+
+    });
+
+}
+
+/* =========================
+   ESTRELLAS
+========================= */
+
+function starGame(){
+
+    state.stars=0;
+
+    transition(()=>{
+
+        render(`
+
+            <h1 class="title">
+                ⭐ Encuentra las estrellas
+            </h1>
+
+            <p>
+                Hay 5 estrellas escondidas.
+                Toca cada una.
+            </p>
+
+            <div class="progress">
+                <span id="starBar"></span>
+            </div>
+
+            <div class="stars-game">
+
+                <span class="star"
+                    onclick="foundStar(this)">
+                    ⭐
+                </span>
+
+                <span class="star"
+                    onclick="foundStar(this)">
+                    ✨
+                </span>
+
+                <span class="star"
+                    onclick="foundStar(this)">
+                    ⭐
+                </span>
+
+                <span class="star"
+                    onclick="foundStar(this)">
+                    ✨
+                </span>
+
+                <span class="star"
+                    onclick="foundStar(this)">
+                    ⭐
+                </span>
+
+            </div>
+
+            <p id="starMsg">
+                Encontradas: 0/5
+            </p>
+
+        `);
+
+    });
+
+}
+
+function foundStar(el){
+
+    if(el.classList.contains("found")) return;
+
+    el.classList.add("found");
+
+    state.stars++;
+
+    document.getElementById("starMsg").textContent=
+        "Encontradas: "+state.stars+"/5";
+
+    document.getElementById("starBar").style.width=
+        (state.stars*20)+"%";
+
+    if(state.stars===5){
+
+        addItem("⭐","Estrella especial");
+
+        setTimeout(()=>{
+
+            transition(()=>{
+
+                render(`
+
+                    <div class="cat-avatar">
+                        🐱💛 🐈✨
+                    </div>
+
+                    <h1 class="title">
+                        ¡Encontraste todas! 🥹
+                    </h1>
+
+                    <div class="dialogue">
+
+                        <p>
+                            Las cinco estrellas se juntan
+                            en el cielo.
+                        </p>
+
+                        <p>
+                            Y forman un pequeño corazón. 💗
+                        </p>
+
+                        <p>
+                            <strong>
+                                Objeto conseguido:
+                                ⭐ Estrella especial
+                            </strong>
+                        </p>
+
+                    </div>
+
+                    ${nextButton(
+                        "Pulsa aquí para ver el mapa 🗺️",
+                        "showMap()"
+                    )}
+
+                `);
+
+            });
+
+        },600);
+
+    }
+
+}
+
+/* =========================
+   MAPA
+========================= */
+
+function showMap(){
+
+    transition(()=>{
+
+        render(`
+
+            <h1 class="title">
+                🗺️ Nuestro pequeño mundo
+            </h1>
+
+            <div id="map">
+
+                <div class="node done">
+                    🌷<br>Jardín
+                </div>
+
+                <div class="node done">
+                    🐾<br>Encuentro
+                </div>
+
+                <div class="node done">
+                    ⭐<br>Estrellas
+                </div>
+
+                <div class="node open">
+                    🌲<br>Bosque
+                </div>
+
+                <div class="node open">
+                    🌊<br>Lago
+                </div>
+
+                <div class="node lock">
+                    🏡<br>Casita
+                </div>
+
+                <div class="node lock">
+                    🎀<br>Secreto
+                </div>
+
+            </div>
+
+            <div class="dialogue">
+
+                <p>
+                    Hemos recorrido un buen pedacito...
+                </p>
+
+                <p>
+                    Pero todavía quedan lugares
+                    por descubrir.
+                </p>
+
+            </div>
+
+            ${nextButton(
+                "Pulsa aquí para explorar el bosque 🌲",
+                "forestScene()"
+            )}
+
+        `);
+
+    });
+
+}
+
+/* =========================
+   BOSQUE
+========================= */
+
+function forestScene(){
+
+    transition(()=>{
+
+        render(`
+
+            <div class="path forest">
+
+                <div class="cat-avatar">
+                    🐱💛 🐈
+                </div>
+
+                <h1 class="title">
+                    🌲 El bosque encantado
+                </h1>
+
+                <p>
+                    Las dos gatitas entran al bosque.
+                </p>
+
+            </div>
+
+            <div class="dialogue">
+
+                <p>
+                    Frente a ellas aparecen tres senderos.
+                </p>
+
+                <p>
+                    Una pequeña inscripción dice:
+                </p>
+
+                <p>
+                    <em>
+                        "Donde duerme la luna,
+                        encontrarás el camino correcto."
+                    </em>
+                </p>
+
+            </div>
+
+            <div class="choice-grid">
+
+                <button class="choice"
+                    onclick="forestChoice(1)">
+                    🌿<br>
+                    Izquierda
+                </button>
+
+                <button class="choice"
+                    onclick="forestChoice(2)">
+                    🌙<br>
+                    Centro
+                </button>
+
+                <button class="choice"
+                    onclick="forestChoice(3)">
+                    🍃<br>
+                    Derecha
+                </button>
+
+            </div>
+
+        `);
+
+    });
+
+}
+
+function forestChoice(n){
+
+    const correct=n===2;
+
+    transition(()=>{
+
+        render(`
+
+            <div class="cat-avatar">
+                ${correct?"🐱💛 🐈✨":"🐱💛 🐈"}
+            </div>
+
+            <h1 class="title">
+                ${correct?"¡Camino correcto!":"Hmm... por aquí no era"}
+            </h1>
+
+            <div class="dialogue">
+
+                <p>
+                    ${
+                        correct
+                        ?
+                        "El camino del centro está iluminado por la luna. Las dos gatitas continúan juntas."
+                        :
+                        "Las hojas terminan en un pequeño callejón. Las dos se miran y se ríen. Mejor intentemos otra vez."
+                    }
+                </p>
+
+            </div>
+
+            <button class="pink-btn"
+                onclick="${correct?"lakeScene()":"forestScene()"}">
+
+                ${
+                    correct
+                    ?
+                    "Continuar 🌊"
+                    :
+                    "Intentarlo otra vez 🐾"
+                }
+
+            </button>
+
+        `);
+
+    });
+
+}
+
+/* =========================
+   LAGO
+========================= */
+
+function lakeScene(){
+
+    transition(()=>{
+
+        render(`
+
+            <div class="path night">
+
+                <div class="cat-avatar">
+                    🐱💛 🐈
+                </div>
+
+                <h1 class="title">
+                    🌊 El lago de los reflejos
+                </h1>
+
+                <p>
+                    La luna se refleja en el agua.
+                </p>
+
+                <p>
+                    Las luciérnagas flotan alrededor.
+                </p>
+
+            </div>
+
+            <div class="dialogue">
+
+                <p>
+                    Las dos gatitas se sientan juntas
+                    junto al lago.
+                </p>
+
+                <p>
+                    Por un momento todo queda en silencio.
+                </p>
+
+            </div>
+
+            ${nextButton(
+                "Pulsa aquí para continuar 🎁",
+                "giftScene()"
+            )}
+
+        `);
+
+    });
+
+}
+
+/* =========================
+   REGALO
+========================= */
+
+function giftScene(){
+
+    transition(()=>{
+
+        render(`
+
+            <h1 class="title">
+                🎁 Un pequeño regalo
+            </h1>
+
+            <div class="dialogue">
+
+                <p>
+                    La gatita amarilla mira su bolsito.
+                </p>
+
+                <p>
+                    Quizá haya algo que pueda
+                    regalarle a su nueva compañera.
+                </p>
+
+                <p>
+                    <strong>
+                        Elige un regalo:
+                    </strong>
+                </p>
+
+            </div>
+
+            <div class="choice-grid">
+
+                <button class="choice"
+                    onclick="giveGift('🌸')">
+                    🌸<br>
+                    Una flor
+                </button>
+
+                <button class="choice"
+                    onclick="giveGift('⭐')">
+                    ⭐<br>
+                    Una estrella
+                </button>
+
+                <button class="choice"
+                    onclick="giveGift('💗')">
+                    💗<br>
+                    Un corazón
+                </button>
+
+            </div>
+
+        `);
+
+    });
+
+}
+
+function giveGift(icon){
+
+    state.gift=icon;
+
+    state.friendship+=15;
+
+    addItem(icon,"Regalo para la calico");
+
+    transition(()=>{
+
+        render(`
+
+            <div class="cat-avatar">
+                🐱💛 ${icon} 🐈
+            </div>
+
+            <h1 class="title">
+                ¿Para mí? 🥹
+            </h1>
+
+            <div class="dialogue">
+
+                <p>
+                    La gatita amarilla le entrega
+                    el regalo.
+                </p>
+
+                <p>
+                    La calico abre mucho los ojos
+                    y se acerca feliz.
+                </p>
+
+                <p>
+                    <em>
+                        "Sí. Es para ti."
+                    </em>
+                    💗
+                </p>
+
+            </div>
+
+            ${nextButton(
+                "Pulsa aquí y continúen juntas 🐾",
+                "houseScene()"
+            )}
+
+        `);
+
+    });
+
+}
+
+/* =========================
+   CASITA
+========================= */
+
+function houseScene(){
+
+    transition(()=>{
+
+        render(`
+
+            <h1 class="title">
+                🏡 La pequeña casita
+            </h1>
+
+            <div class="dialogue">
+
+                <p>
+                    Al final del sendero encuentran
+                    una pequeña casita.
+                </p>
+
+                <p>
+                    Dentro hay varios objetos.
+                </p>
+
+                <p>
+                    Puedes tocar cualquiera
+                    para investigarlo.
+                </p>
+
+            </div>
+
+            <div class="objects">
+
+                <button class="object-btn"
+                    onclick="inspect('📚')">
+                    📚
+                </button>
+
+                <button class="object-btn"
+                    onclick="inspect('🕯️')">
+                    🕯️
+                </button>
+
+                <button class="object-btn"
+                    onclick="inspect('🖼️')">
+                    🖼️
+                </button>
+
+                <button class="object-btn"
+                    onclick="inspect('🎁')">
+                    🎁
+                </button>
+
+                <button class="object-btn"
+                    onclick="inspect('🗝️')">
+                    🗝️
+                </button>
+
+            </div>
+
+        `);
+
+    });
+
+}
+
+function inspect(icon){
+
+    const texts={
+
+        "📚":
+        "Un libro lleno de historias de aventuras.",
+
+        "🕯️":
+        "Una vela que ilumina una pequeña nota.",
+
+        "🖼️":
+        "Un dibujo de dos gatitos mirando las estrellas.",
+
+        "🎁":
+        "Una cajita vacía, como si estuviera esperando algo.",
+
+        "🗝️":
+        "Una llave que parece abrir una puerta en el fondo."
+
+    };
+
+    transition(()=>{
+
+        render(`
+
+            <div class="cat-avatar">
+                🐱💛 🐈
+            </div>
+
+            <h1 class="title">
+                ${icon}
+            </h1>
+
+            <div class="dialogue">
+
+                <p>
+                    ${texts[icon]}
+                </p>
+
+            </div>
+
+            ${nextButton(
+                "Pulsa aquí para seguir explorando 💌",
+                "letterMystery()"
+            )}
+
+        `);
+
+    });
+
+}
+
+/* =========================
+   CARTA MISTERIOSA
+========================= */
+
+function letterMystery(){
+
+    transition(()=>{
+
+        render(`
+
+            <h1 class="title">
+                💌 Una carta misteriosa
+            </h1>
+
+            <div class="letter-wrap">
+
+                <div class="letter">
+
+                    <strong>
+                        Para quien llegue hasta aquí:
+                    </strong>
+
+                    <br><br>
+
+                    <em>
+                        ...
+                    </em>
+
+                    <br><br>
+
+                    La hoja está completamente en blanco.
+
+                </div>
+
+            </div>
+
+            <div class="dialogue">
+
+                <p>
+                    Parece que todavía no es
+                    el momento de leerla.
+                </p>
+
+                <p>
+                    Tal vez haya que llegar
+                    al final de la aventura.
+                </p>
+
+            </div>
+
+            ${nextButton(
+                "Pulsa aquí para buscar el lugar secreto 🌙",
+                "secretPlace()"
+            )}
+
+        `);
+
+    });
+
+}
+
+/* =========================
+   LUGAR SECRETO
+========================= */
+
+function secretPlace(){
+
+    transition(()=>{
+
+        render(`
+
+            <div class="path night">
+
+                <div class="cat-avatar">
+                    🐱💛 🐈
+                </div>
+
+                <h1 class="title">
+                    🌙 El lugar secreto
+                </h1>
+
+                <p>
+                    Las dos gatitas caminan juntas
+                    mientras aparecen pequeñas estrellas.
+                </p>
+
+            </div>
+
+            <div class="dialogue">
+
+                <p>
+                    Al llegar al final del claro
+                    encuentran algo.
+                </p>
+
+                <p>
+                    <strong>
+                        Una cajita rosa con un gran moño. 🎀
+                    </strong>
+                </p>
+
+            </div>
+
+            ${nextButton(
+                "Pulsa aquí para acercarte 🎀",
+                "giftBox()"
+            )}
+
+        `);
+
+    });
+
+}
+
+/* =========================
+   CAJITA FINAL
+========================= */
+
+function giftBox(){
+
+    transition(()=>{
+
+        render(`
+
+            <h1 class="title">
+                🎀 Un último secreto
+            </h1>
+
+            <div class="dialogue">
+
+                <p>
+                    La cajita se mueve suavemente.
+                </p>
+
+                <p>
+                    Parece estar esperando
+                    que la abras.
+                </p>
+
+            </div>
+
+            <div class="gift"
+                onclick="openGift()">
+                🎁
+            </div>
+
+            <p>
+                <strong>
+                    Toca la cajita.
+                </strong>
+            </p>
+
+        `);
+
+    });
+
+}
+
+/* =========================
+   ABRIR REGALO
+========================= */
+
+function openGift(){
+
+    for(let i=0;i<30;i++){
+
+        const c=document.createElement("span");
+
+        c.className="confetti";
+
+        c.textContent=[
+            "💗",
+            "✨",
+            "🎀",
+            "🌸",
+            "🐾"
+        ][i%5];
+
+        c.style.left=
+            Math.random()*100+"vw";
+
+        c.style.top="-30px";
+
+        c.style.animationDelay=
+            Math.random()*.8+"s";
+
+        document.body.appendChild(c);
+
+        setTimeout(()=>{
+            c.remove();
+        },3200);
+
+    }
+
+    setTimeout(()=>{
+
+        transition(()=>{
+            finalLetter();
+        });
+
+    },600);
+
+}
+
+/* =========================
+   CARTA FINAL
+========================= */
+
+function finalLetter(){
+
+    const text=
+
+`He creado esta aventura para ti.
+
+Sé lo mucho que te gustan los gatitos y quise hacer algo para divertirte un rato.
+
+Me encanta pasar tiempo contigo, tus mensajes me hacen feliz y más tus besos.
+
+Tal vez ya no sea un secreto para ninguna de las dos, pero quería decirte que me gustas mucho. Me esforzaré por ganarme tu corazón y hacerte feliz.
+
+A veces, las historias más bonitas comienzan con algo tan sencillo como querer compartir un momento con alguien especial.`;
+
+    render(`
+
+        <h1 class="title">
+            💌 Para ti
+        </h1>
+
+        <div class="letter-wrap">
+
+            <div class="hello">
+                🎀
+            </div>
+
+            <div class="letter">
+
+                <div>
+
+                    <strong>
+                        Para Fernanda ♡
+                    </strong>
+
+                    <br>
+
+                    <strong>
+                        De Waleska
+                    </strong>
+
+                </div>
+
+                <hr>
+
+                <div
+                    id="typed"
+                    class="type">
+                </div>
+
+                <br>
+
+                <div style="text-align:right">
+
+                    <strong>
+                        P.D. Los gatitos son lo mejor. 🐱💗
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    `);
+
+    typeWriter(
+        text,
+        "typed",
+        24
+    );
+
+}
+
+/* =========================
+   ESCRITURA
+========================= */
+
+function typeWriter(text,id,speed){
+
+    const el=document.getElementById(id);
+
+    let i=0;
+
+    function write(){
+
+        if(i<text.length){
+
+            el.textContent+=text[i];
+
+            i++;
+
+            setTimeout(
+                write,
+                text[i-1]==="\n"
+                    ?500
+                    :speed
+            );
+
+        }else{
+
+            setTimeout(
+                finalScene,
+                1000
+            );
+
+        }
+
+    }
+
+    write();
+
+}
+
+/* =========================
+   FINAL
+========================= */
+
+function finalScene(){
+
+    transition(()=>{
+
+        render(`
+
+            <div class="cat-avatar">
+                🐱💛 🐈
+            </div>
+
+            <h1 class="title">
+                ✨ Fin de la aventura ✨
+            </h1>
+
+            <div class="dialogue">
+
+                <p>
+                    Y así termina este pequeño juego...
+                </p>
+
+                <p>
+                    O quizá simplemente sea
+                    el comienzo de algo mucho más bonito.
+                </p>
+
+                <p>
+                    <strong>
+                        Gracias por jugar, Fernanda. 💗
+                    </strong>
+                </p>
+
+            </div>
+
+            <p
+                style="
+                font-family:'Cormorant Garamond',serif;
+                font-size:28px;
+                color:#8c4d5e;
+                margin-top:30px;
+                "
+            >
+                He creado esto para ti
+                porque me gustas mucho. ♡
+            </p>
+
+        `);
+
+    });
+
+}
 
 /* =========================
    BOLSITO
 ========================= */
 
-function abrirBolso() {
+function addItem(icon,name){
 
-    const inventario =
-        document.getElementById("inventario");
-
-    if (inventario.style.display === "block") {
-
-        inventario.style.display = "none";
-
-    } else {
-
-        inventario.style.display = "block";
-
-    }
+    state.inventory.push({
+        icon:icon,
+        name:name
+    });
 
 }
 
+function showInventory(){
 
-/* =========================
-   COMENZAR
-========================= */
+    const items=
 
-function comenzar() {
+        state.inventory.length
 
-    alert(
-        function comenzar() {
+        ?
 
-    const panel = document.querySelector(".panel");
+        state.inventory.map(item=>`
 
-    panel.innerHTML = `
+            <div class="item">
 
-        <div class="gato">
-            🐱
-        </div>
+                ${item.icon}
+                <strong>
+                    ${item.name}
+                </strong>
 
-        <div class="nombre-gato">
-            Gatito amarillo 💛
-        </div>
+            </div>
 
-        <div class="burbuja">
+        `).join("")
 
-            <h2 class="titulo">
-                🌷 El jardín
-            </h2>
+        :
 
-            <p>
-                Después de caminar durante un rato,
-                el pequeño gatito llega a un jardín
-                lleno de flores.
-            </p>
+        `<p>
+            Tu bolsito todavía está vacío. 🐾
+        </p>`;
 
-            <p>
-                El viento mueve suavemente las hojas
-                y, entre los árboles, parece haber
-                algo que llama su atención...
-            </p>
+    render(`
 
-            <p>
-                🐾 ¿Qué debería hacer?
-            </p>
+        <h1 class="title">
+            🎒 Mi bolsito
+        </h1>
+
+        <div class="inventory">
+
+            ${items}
 
         </div>
 
-        <button class="boton" onclick="eleccionJardin('flores')">
-            🌸 Acercarse a las flores
-        </button>
+        ${nextButton(
+            "Volver a la aventura 🐾",
+            "houseScene()"
+        )}
 
-        <button class="boton" onclick="eleccionJardin('arbol')">
-            🌳 Investigar el árbol
-        </button>
+    `);
 
-        <button class="boton" onclick="eleccionJardin('camino')">
-            🐾 Seguir el caminito
-        </button>
-
-    `;
-
-            }
+}
 
 </script>
-function eleccionJardin(opcion) {
 
-    const panel = document.querySelector(".panel");
-
-    let titulo = "";
-    let texto = "";
-    let emoji = "";
-
-    if (opcion === "flores") {
-
-        emoji = "🌸🐱";
-        titulo = "Las flores...";
-        texto = `
-            El gatito se acerca cuidadosamente.
-            Entre las flores encuentra algo pequeño
-            y brillante.
-            <br><br>
-            ✨ ¡Has encontrado una estrellita!
-        `;
-
-    }
-
-    if (opcion === "arbol") {
-
-        emoji = "🌳🐱";
-        titulo = "El viejo árbol";
-        texto = `
-            El gatito mira hacia arriba y descubre
-            unas pequeñas huellas dibujadas en el
-            tronco.
-            <br><br>
-            🐾 Alguien estuvo aquí antes...
-        `;
-
-    }
-
-    if (opcion === "camino") {
-
-        emoji = "🐱🐾";
-        titulo = "El caminito";
-        texto = `
-            El gatito decide seguir las pequeñas
-            huellas que aparecen sobre la tierra.
-            <br><br>
-            Parece que conducen hacia alguna parte.
-            👀
-        `;
-
-    }
-
-    panel.innerHTML = `
-
-        <div class="gato">
-            ${emoji}
-        </div>
-
-        <div class="burbuja">
-
-            <h2 class="titulo">
-                ${titulo}
-            </h2>
-
-            <p>
-                ${texto}
-            </p>
-
-        </div>
-
-        <button class="boton" onclick="siguienteEscena()">
-            🐾 Continuar aventura
-        </button>
-
-    `;
-
-}
-
-
-function siguienteEscena() {
-
-    const panel = document.querySelector(".panel");
-
-    panel.innerHTML = `
-
-        <div class="gato">
-            🐱💛
-        </div>
-
-        <div class="burbuja">
-
-            <h2 class="titulo">
-                👀 ¿Qué es eso?
-            </h2>
-
-            <p>
-                El gatito continúa avanzando por el
-                jardín...
-            </p>
-
-            <p>
-                De repente escucha un pequeño ruido
-                detrás de unos arbustos.
-            </p>
-
-            <p>
-                <strong>
-                    Parece que hay alguien ahí.
-                </strong>
-            </p>
-
-        </div>
-
-        <button class="boton" onclick="aparecerGatita()">
-            🌿 Investigar
-        </button>
-
-    `;
-
-}
-
-
-function aparecerGatita() {
-
-    const panel = document.querySelector(".panel");
-
-    panel.innerHTML = `
-
-        <div class="gato">
-            🐱💛 🐈
-        </div>
-
-        <div class="burbuja">
-
-            <h2 class="titulo">
-                🐾 ¡Encontraste a alguien!
-            </h2>
-
-            <p>
-                Entre los arbustos aparece una
-                pequeña gatita calico.
-            </p>
-
-            <p>
-                Parece un poquito confundida...
-                pero también bastante curiosa. 👀
-            </p>
-
-            <p>
-                El gatito amarillo la mira.
-            </p>
-
-            <p>
-                Y ahora tienes que decidir qué hacer.
-            </p>
-
-        </div>
-
-        <button class="boton" onclick="saludar()">
-            👋 Saludarla
-        </button>
-
-        <button class="boton" onclick="acercarse()">
-            🐾 Acercarse despacito
-        </button>
-
-    `;
-
-}
-
-
-function saludar() {
-
-    mostrarRespuesta(
-        "👋 Un saludo inesperado",
-        "El gatito levanta una patita y la saluda. La gatita calico se queda mirándolo durante unos segundos... y finalmente sonríe. 🐈💕"
-    );
-
-}
-
-
-function acercarse() {
-
-    mostrarRespuesta(
-        "🐾 Un poquito más cerca",
-        "El gatito se acerca despacio para no asustarla. La gatita calico lo observa con curiosidad y mueve suavemente su colita."
-    );
-
-}
-
-
-function mostrarRespuesta(titulo, texto) {
-
-    const panel = document.querySelector(".panel");
-
-    panel.innerHTML = `
-
-        <div class="gato">
-            🐱💛 🐈
-        </div>
-
-        <div class="burbuja">
-
-            <h2 class="titulo">
-                ${titulo}
-            </h2>
-
-            <p>
-                ${texto}
-            </p>
-
-        </div>
-
-        <button class="boton" onclick="continuarConGatita()">
-            💕 Seguir
-        </button>
-
-    `;
-
-}
-
-
-function continuarConGatita() {
-
-    const panel = document.querySelector(".panel");
-
-    panel.innerHTML = `
-
-        <div class="gato">
-            🐱💛 🐈
-        </div>
-
-        <div class="burbuja">
-
-            <h2 class="titulo">
-                🌷 Una nueva compañía
-            </h2>
-
-            <p>
-                Quizá esta aventura sea mucho más
-                interesante de lo que el gatito
-                imaginaba...
-            </p>
-
-            <p>
-                Pero todavía queda muchísimo por
-                descubrir.
-            </p>
-
-            <p>
-                <strong>
-                    Y esta vez no tendrá que hacerlo solo.
-                </strong>
-            </p>
-
-        </div>
-
-        <button class="boton" onclick="continuarConGatita()">
-            🐾 Continuar
-        </button>
-
-    `;
-
-}
 </body>
-  </html>
+    </html>
