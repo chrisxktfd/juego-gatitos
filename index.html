@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Una pequeña aventura 🐾</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100%;
+}
+
+body {
+    background: #000;
+    font-family: Georgia, serif;
+    overflow-x: hidden;
+}
+
+/* =========================
+   PANTALLA DE CARGA
+========================= */
+
+#carga {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    color: white;
+    transition: opacity 1s ease;
+}
+
+.carga-contenido {
+    width: 90%;
+    max-width: 500px;
+    text-align: center;
+}
+
+.gato-carga {
+    font-size: 65px;
+    margin-bottom: 25px;
+    animation: caminar 1s infinite alternate;
+}
+
+.puntos {
+    display: flex;
+    justify-content: center;
+    gap: 13px;
+    margin-bottom: 25px;
+}
+
+.punto {
+    width: 10px;
+    height: 10px;
+    background: white;
+    border-radius: 50%;
+    opacity: .2;
+    animation: punto 1.5s infinite;
+}
+
+.punto:nth-child(2) {
+    animation-delay: .2s;
+}
+
+.punto:nth-child(3) {
+    animation-delay: .4s;
+}
+
+.punto:nth-child(4) {
+    animation-delay: .6s;
+}
+
+.punto:nth-child(5) {
+    animation-delay: .8s;
+}
+
+.barra {
+    width: 100%;
+    height: 5px;
+    background: #222;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.progreso {
+    width: 0%;
+    height: 100%;
+    background: white;
+    animation: cargar 5s linear forwards;
+}
+
+.bienvenida {
+    display: none;
+    font-size: 38px;
+    font-weight: bold;
+    animation: aparecer 1.5s ease forwards;
+}
+
+/* =========================
+   JUEGO
+========================= */
+
+#juego {
+    display: none;
+    min-height: 100vh;
+    background:
+        linear-gradient(
+            rgba(255,240,210,.35),
+            rgba(255,240,210,.35)
+        ),
+        linear-gradient(135deg, #b8dfaa, #d9f0bd, #f7ddb2);
+    position: relative;
+    overflow: hidden;
+}
+
+/* decoración */
+
+.luz {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: rgba(255,255,255,.75);
+    animation: flotar 4s infinite ease-in-out;
+}
+
+.luz:nth-child(1) {
+    top: 15%;
+    left: 10%;
+}
+
+.luz:nth-child(2) {
+    top: 30%;
+    right: 15%;
+    animation-delay: 1s;
+}
+
+.luz:nth-child(3) {
+    bottom: 25%;
+    left: 20%;
+    animation-delay: 2s;
+}
+
+.luz:nth-child(4) {
+    bottom: 15%;
+    right: 25%;
+    animation-delay: 3s;
+}
+
+/* =========================
+   ESCENA
+========================= */
+
+.escena {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 35px 20px;
+}
+
+.panel {
+    width: 100%;
+    max-width: 700px;
+    min-height: 600px;
+    background: rgba(255,255,255,.88);
+    border-radius: 35px;
+    padding: 30px 22px;
+    box-shadow: 0 20px 60px rgba(70,90,50,.25);
+    text-align: center;
+    position: relative;
+    animation: subir .8s ease;
+}
+
+.gato {
+    font-size: 110px;
+    margin-top: 20px;
+    animation: respirar 2s infinite ease-in-out;
+}
+
+.nombre-gato {
+    font-size: 16px;
+    color: #777;
+    margin-top: -10px;
+}
+
+.burbuja {
+    position: relative;
+    margin: 25px auto;
+    max-width: 550px;
+    padding: 20px;
+    background: white;
+    border-radius: 25px;
+    box-shadow: 0 8px 25px rgba(0,0,0,.08);
+    font-size: 19px;
+    line-height: 1.7;
+}
+
+.burbuja::after {
+    content: "";
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-top: 15px solid white;
+}
+
+.titulo {
+    font-size: 30px;
+    color: #8b5965;
+    margin-bottom: 10px;
+}
+
+.subtitulo {
+    color: #777;
+    line-height: 1.6;
+}
+
+.boton {
+    display: block;
+    width: 100%;
+    max-width: 400px;
+    margin: 15px auto;
+    padding: 16px 20px;
+    border: none;
+    border-radius: 30px;
+    background: #d88fa3;
+    color: white;
+    font-size: 17px;
+    font-family: Georgia, serif;
+    cursor: pointer;
+    transition: .3s;
+    box-shadow: 0 7px 18px rgba(160,80,100,.2);
+}
+
+.boton:hover {
+    transform: translateY(-3px) scale(1.02);
+}
+
+.boton:active {
+    transform: scale(.95);
+}
+
+/* =========================
+   BOLSITO
+========================= */
+
+.bolsito {
+    position: absolute;
+    right: 25px;
+    top: 25px;
+    background: #b87955;
+    color: white;
+    padding: 10px 13px;
+    border-radius: 15px;
+    font-size: 20px;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.bolsito:hover {
+    transform: scale(1.1);
+}
+
+.inventario {
+    display: none;
+    position: absolute;
+    right: 20px;
+    top: 75px;
+    width: 200px;
+    background: white;
+    border-radius: 20px;
+    padding: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,.2);
+    z-index: 20;
+}
+
+.inventario h3 {
+    margin-top: 0;
+    color: #8b5965;
+}
+
+.objeto {
+    padding: 7px;
+    border-radius: 10px;
+    background: #fff2f5;
+    margin: 5px 0;
+}
+
+/* =========================
+   ANIMACIONES
+========================= */
+
+@keyframes cargar {
+    from {
+        width: 0%;
+    }
+
+    to {
+        width: 100%;
+    }
+}
+
+@keyframes punto {
+
+    0%,100% {
+        opacity: .2;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1.5);
+    }
+}
+
+@keyframes caminar {
+
+    from {
+        transform: translateX(-20px);
+    }
+
+    to {
+        transform: translateX(20px);
+    }
+}
+
+@keyframes aparecer {
+
+    from {
+        opacity: 0;
+        transform: scale(.8);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes subir {
+
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes respirar {
+
+    0%,100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+@keyframes flotar {
+
+    0%,100% {
+        transform: translateY(0);
+        opacity: .4;
+    }
+
+    50% {
+        transform: translateY(-25px);
+        opacity: 1;
+    }
+}
+
+/* =========================
+   MÓVIL
+========================= */
+
+@media (max-width: 500px) {
+
+    .panel {
+        min-height: 620px;
+    }
+
+    .gato {
+        font-size: 90px;
+    }
+
+    .titulo {
+        font-size: 25px;
+    }
+
+    .burbuja {
+        font-size: 17px;
+    }
+
+    .bienvenida {
+        font-size: 30px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- =========================
+     CARGA
+========================= -->
+
+<div id="carga">
+
+    <div class="carga-contenido">
+
+        <div class="gato-carga">🐈</div>
+
+        <div class="puntos">
+
+            <div class="punto"></div>
+            <div class="punto"></div>
+            <div class="punto"></div>
+            <div class="punto"></div>
+            <div class="punto"></div>
+
+        </div>
+
+        <div class="barra">
+            <div class="progreso"></div>
+        </div>
+
+        <h1 class="bienvenida">
+            Bienvenida a la aventura ✨
+        </h1>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     JUEGO
+========================= -->
+
+<div id="juego">
+
+    <div class="luz"></div>
+    <div class="luz"></div>
+    <div class="luz"></div>
+    <div class="luz"></div>
+
+    <div class="escena">
+
+        <div class="panel">
+
+            <button class="bolsito" onclick="abrirBolso()">
+                🎒
+            </button>
+
+            <div id="inventario" class="inventario">
+
+                <h3>Mi bolsito 🐾</h3>
+
+                <div id="objetos">
+                    Está vacío...
+                </div>
+
+            </div>
+
+
+            <div class="gato">
+                🐱
+            </div>
+
+            <div class="nombre-gato">
+                Tu pequeño compañero 💛
+            </div>
+
+
+            <div class="burbuja">
+
+                <h2 class="titulo">
+                    ¡Hola! 🐾
+                </h2>
+
+                <p class="subtitulo">
+
+                    Este será un pequeño juego interactivo.
+                    Tú tendrás que tomar decisiones para
+                    ayudarme a avanzar por esta aventura.
+
+                    <br><br>
+
+                    Algunas decisiones cambiarán lo que ocurra
+                    después... así que piensa bien. 👀
+
+                </p>
+
+            </div>
+
+
+            <button class="boton" onclick="comenzar()">
+                Comenzar aventura ✨
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* =========================
+   PANTALLA DE CARGA
+========================= */
+
+setTimeout(function() {
+
+    const carga = document.getElementById("carga");
+
+    carga.style.opacity = "0";
+
+    setTimeout(function() {
+
+        carga.style.display = "none";
+
+        document.getElementById("juego").style.display = "block";
+
+    }, 1000);
+
+}, 5500);
+
+
+/* =========================
+   BOLSITO
+========================= */
+
+function abrirBolso() {
+
+    const inventario =
+        document.getElementById("inventario");
+
+    if (inventario.style.display === "block") {
+
+        inventario.style.display = "none";
+
+    } else {
+
+        inventario.style.display = "block";
+
+    }
+
+}
+
+
+/* =========================
+   COMENZAR
+========================= */
+
+function comenzar() {
+
+    alert(
+        "🐱💛 La aventura está a punto de comenzar..."
+    );
+
+}
+
+</script>
+
+</body>
+  </html>
