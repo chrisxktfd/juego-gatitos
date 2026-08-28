@@ -3,11 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Una pequeña aventura para Fernanda 🐾</title>
 
 <style>
-
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Quicksand:wght@400;500;600;700&family=Press+Start+2P&display=swap');
 
 *{
@@ -34,21 +32,15 @@ button{
     display:none!important;
 }
 
-/* =====================================================
-   PORTADA / CARGA
-===================================================== */
+/* =========================
+   PANTALLA DE CARGA
+========================= */
 
 #loading{
     position:fixed;
     inset:0;
     z-index:9999;
-    background:
-        radial-gradient(
-            circle at center,
-            #17151a 0%,
-            #08070a 48%,
-            #030304 100%
-        );
+    background:#050506;
     color:white;
     display:flex;
     align-items:center;
@@ -58,1879 +50,806 @@ button{
 }
 
 .load-wrap{
-    width:100%;
+    width:min(90vw,650px);
     height:100%;
     position:relative;
 }
 
-/* -----------------------------------------------------
-   TEXTO DE CARGA
------------------------------------------------------ */
-
 .loading-title{
     position:absolute;
-    top:13%;
+    top:14%;
     width:100%;
     font-family:'Press Start 2P',monospace;
-    font-size:clamp(11px,3vw,19px);
+    font-size:clamp(12px,3vw,20px);
     color:#fff2c4;
     letter-spacing:2px;
-    text-shadow:
-        0 0 7px #fff2c4,
-        0 0 20px #d6ae59;
-    animation:tituloCarga 2s ease-in-out infinite alternate;
 }
-
-@keyframes tituloCarga{
-    from{
-        opacity:.65;
-    }
-
-    to{
-        opacity:1;
-    }
-}
-
-/* =====================================================
-   PATITAS DE LA PORTADA
-===================================================== */
-
-.cover-paw{
-    position:absolute;
-    color:#fff2c4;
-    opacity:.15;
-    font-size:28px;
-    filter:
-        drop-shadow(0 0 5px #fff1b0)
-        drop-shadow(0 0 15px #cba34e);
-    animation:
-        pawFloat 3s ease-in-out infinite,
-        pawGlow 2s ease-in-out infinite alternate;
-}
-
-.paw1{
-    left:8%;
-    top:18%;
-    transform:rotate(-25deg);
-    animation-delay:.2s;
-}
-
-.paw2{
-    left:22%;
-    top:30%;
-    font-size:20px;
-    transform:rotate(18deg);
-    animation-delay:1s;
-}
-
-.paw3{
-    left:7%;
-    top:55%;
-    font-size:35px;
-    transform:rotate(-15deg);
-    animation-delay:1.5s;
-}
-
-.paw4{
-    left:18%;
-    top:73%;
-    font-size:24px;
-    transform:rotate(25deg);
-    animation-delay:.7s;
-}
-
-.paw5{
-    right:9%;
-    top:20%;
-    font-size:34px;
-    transform:rotate(22deg);
-    animation-delay:1.2s;
-}
-
-.paw6{
-    right:23%;
-    top:34%;
-    font-size:21px;
-    transform:rotate(-18deg);
-    animation-delay:.4s;
-}
-
-.paw7{
-    right:7%;
-    top:58%;
-    font-size:27px;
-    transform:rotate(15deg);
-    animation-delay:1.7s;
-}
-
-.paw8{
-    right:19%;
-    top:76%;
-    font-size:38px;
-    transform:rotate(-25deg);
-    animation-delay:.9s;
-}
-
-.paw9{
-    left:34%;
-    top:20%;
-    font-size:15px;
-    animation-delay:1.4s;
-}
-
-.paw10{
-    right:36%;
-    top:23%;
-    font-size:17px;
-    animation-delay:.5s;
-}
-
-.paw11{
-    left:29%;
-    bottom:21%;
-    font-size:17px;
-    animation-delay:1.8s;
-}
-
-.paw12{
-    right:31%;
-    bottom:20%;
-    font-size:19px;
-    animation-delay:.3s;
-}
-
-@keyframes pawFloat{
-
-    0%,100%{
-        transform:translateY(0) rotate(var(--rotation,0deg));
-    }
-
-    50%{
-        transform:translateY(-9px) rotate(var(--rotation,0deg));
-    }
-
-}
-
-@keyframes pawGlow{
-
-    from{
-        opacity:.12;
-    }
-
-    to{
-        opacity:.55;
-    }
-
-}
-
-/* =====================================================
-   ESTRELLAS / BRILLITOS
-===================================================== */
-
-.spark{
-    position:absolute;
-    width:6px;
-    height:6px;
-    border-radius:50%;
-    background:#ffe9a8;
-    box-shadow:
-        0 0 8px 3px #ffe9a8,
-        0 0 20px 6px #d6a94c;
-    animation:brillar 1.4s infinite alternate;
-}
-
-.s1{
-    left:15%;
-    bottom:43%;
-}
-
-.s2{
-    left:34%;
-    bottom:39%;
-    animation-delay:.2s;
-}
-
-.s3{
-    left:52%;
-    bottom:43%;
-    animation-delay:.4s;
-}
-
-.s4{
-    left:69%;
-    bottom:40%;
-    animation-delay:.6s;
-}
-
-.s5{
-    left:84%;
-    bottom:43%;
-    animation-delay:.8s;
-}
-
-.s6{
-    left:43%;
-    top:39%;
-    animation-delay:1s;
-}
-
-.s7{
-    left:58%;
-    top:31%;
-    animation-delay:.5s;
-}
-
-/* =====================================================
-   GATITA PIXELADA
-===================================================== */
 
 .load-cat{
     position:absolute;
-    left:5%;
+    left:8%;
     bottom:39%;
-    width:90px;
-    height:90px;
-
-    animation:
-        caminar 5s linear forwards;
-
-    filter:
-        drop-shadow(0 0 7px white)
-        drop-shadow(0 0 18px #fff4c5);
+    width:75px;
+    height:75px;
+    animation:caminar 5s linear forwards;
+    filter:drop-shadow(0 0 12px white);
 }
 
-/*
-    La gatita ya no es un cuadrado.
-    Está construida como un pequeño sprite
-    de píxeles.
-*/
-
 .pixel-cat{
-    position:absolute;
-    left:12px;
-    top:8px;
-
-    width:64px;
-    height:62px;
-
+    position:relative;
+    display:block;
+    width:58px;
+    height:58px;
+    margin:8px;
+    background:white;
     image-rendering:pixelated;
 }
 
-/* cabeza */
-
-.pixel-cat .head{
+.pixel-cat .cara{
     position:absolute;
-
-    left:10px;
-    top:18px;
-
+    left:7px;
+    top:16px;
     width:44px;
     height:35px;
-
     background:#fff;
-
-    box-shadow:
-        0 0 0 2px #fff,
-        -4px 5px 0 #fff,
-        4px 5px 0 #fff;
 }
 
-/* orejas */
-
-.pixel-cat .ear-left{
+.pixel-cat .oreja{
     position:absolute;
-
-    left:8px;
     top:5px;
-
-    width:19px;
-    height:23px;
-
+    width:18px;
+    height:20px;
     background:#fff;
-
-    clip-path:
-        polygon(
-            0 100%,
-            25% 0,
-            100% 100%
-        );
 }
 
-.pixel-cat .ear-right{
+.pixel-cat .oreja.izq{
+    left:5px;
+    clip-path:polygon(0 100%,15% 0,100% 100%);
+}
+
+.pixel-cat .oreja.der{
+    right:5px;
+    clip-path:polygon(0 100%,85% 0,100% 100%);
+}
+
+.pixel-cat .ojo{
     position:absolute;
-
-    right:8px;
-    top:5px;
-
-    width:19px;
-    height:23px;
-
-    background:#fff;
-
-    clip-path:
-        polygon(
-            0 100%,
-            75% 0,
-            100% 100%
-        );
-}
-
-/* interior de orejas */
-
-.pixel-cat .inner-left,
-.pixel-cat .inner-right{
-
-    position:absolute;
-
-    width:8px;
-    height:11px;
-
-    background:#f0c2ce;
-
-    opacity:.8;
-}
-
-.pixel-cat .inner-left{
-    left:14px;
-    top:9px;
-
-    clip-path:
-        polygon(
-            0 100%,
-            50% 0,
-            100% 100%
-        );
-}
-
-.pixel-cat .inner-right{
-    right:14px;
-    top:9px;
-
-    clip-path:
-        polygon(
-            0 100%,
-            50% 0,
-            100% 100%
-        );
-}
-
-/* ojos */
-
-.pixel-cat .eye-left,
-.pixel-cat .eye-right{
-
-    position:absolute;
-
-    top:32px;
-
+    top:28px;
     width:5px;
-    height:6px;
-
-    background:#29242a;
-
-    box-shadow:
-        0 0 2px #000;
+    height:5px;
+    background:#222;
 }
 
-.pixel-cat .eye-left{
-    left:21px;
-}
-
-.pixel-cat .eye-right{
-    right:21px;
-}
-
-/* nariz */
-
-.pixel-cat .nose{
-
-    position:absolute;
-
-    left:30px;
-    top:40px;
-
-    width:5px;
-    height:4px;
-
-    background:#e7a5b8;
-
-}
-
-/* cuerpo */
-
-.pixel-cat .body{
-
-    position:absolute;
-
-    left:18px;
-    top:49px;
-
-    width:31px;
-    height:13px;
-
-    background:#fff;
-
-}
-
-/* patitas */
-
-.pixel-cat .leg-left,
-.pixel-cat .leg-right{
-
-    position:absolute;
-
-    top:56px;
-
-    width:8px;
-    height:9px;
-
-    background:#fff;
-
-}
-
-.pixel-cat .leg-left{
+.pixel-cat .ojo1{
     left:17px;
 }
 
-.pixel-cat .leg-right{
+.pixel-cat .ojo2{
     right:17px;
 }
 
-/* cola */
-
-.pixel-cat .tail{
-
+.pixel-cat .nariz{
     position:absolute;
+    left:26px;
+    top:36px;
+    width:5px;
+    height:4px;
+    background:#e7a5b8;
+}
 
-    right:-2px;
-    bottom:9px;
-
+.pixel-cat .cola{
+    position:absolute;
+    right:-18px;
+    bottom:4px;
     width:25px;
     height:8px;
-
-    background:#fff;
-
-    transform:
-        rotate(-35deg);
-
+    background:white;
+    transform:rotate(-35deg);
     transform-origin:left center;
-
-    box-shadow:
-        7px -6px 0 -1px #fff;
 }
 
-/* pequeños pasos */
-
-.load-step{
+.spark{
     position:absolute;
-
-    bottom:36%;
-
-    font-size:14px;
-
-    color:#fff2c4;
-
-    opacity:0;
-
-    animation:
-        stepAppear 5s linear forwards;
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    background:#ffe9a8;
+    box-shadow:0 0 15px 5px #ffe9a8;
+    animation:brillar 1s infinite alternate;
 }
 
-.step1{
-    left:17%;
-}
-
-.step2{
-    left:29%;
-    animation-delay:.7s;
-}
-
-.step3{
-    left:41%;
-    animation-delay:1.4s;
-}
-
-.step4{
-    left:54%;
-    animation-delay:2.1s;
-}
-
-.step5{
-    left:67%;
-    animation-delay:2.8s;
-}
-
-@keyframes stepAppear{
-
-    0%,20%{
-        opacity:0;
-    }
-
-    35%,70%{
-        opacity:.5;
-    }
-
-    100%{
-        opacity:0;
-    }
-
-}
-
-/* =====================================================
-   BARRA
-===================================================== */
+.s1{left:22%;bottom:42%}
+.s2{left:37%;bottom:39%;animation-delay:.2s}
+.s3{left:53%;bottom:42%;animation-delay:.4s}
+.s4{left:68%;bottom:40%;animation-delay:.6s}
+.s5{left:83%;bottom:43%;animation-delay:.8s}
 
 .load-track{
-
     position:absolute;
-
     left:10%;
-    bottom:29%;
-
+    bottom:31%;
     width:80%;
-    height:12px;
-
-    background:#111014;
-
-    border:
-        1px solid #d7b86a;
-
+    height:11px;
+    background:#171515;
+    border:1px solid #d7b86a;
     border-radius:30px;
-
-    overflow:visible;
-
-    box-shadow:
-        0 0 10px #d7b86a33;
-
+    overflow:hidden;
 }
 
 .load-bar{
-
     width:0;
     height:100%;
-
-    background:
-        linear-gradient(
-            90deg,
-            #9e702c,
-            #ffe9a8,
-            #c89a48
-        );
-
-    border-radius:30px;
-
-    box-shadow:
-        0 0 12px #e7c76e,
-        0 0 25px #d3a64e;
-
-    animation:
-        cargar 5s linear forwards;
-
+    background:linear-gradient(
+        90deg,
+        #9e702c,
+        #ffe9a8,
+        #c89a48
+    );
+    box-shadow:0 0 18px #e7c76e;
+    animation:cargar 5s linear forwards;
 }
-
-/* =====================================================
-   PATITA FINAL
-===================================================== */
 
 .paw-end{
-
     position:absolute;
-
     right:7%;
-    bottom:33%;
-
-    font-size:31px;
-
+    bottom:35%;
+    font-size:28px;
     opacity:0;
-
-    filter:
-        drop-shadow(0 0 8px #ffe8a5);
-
-    animation:
-        aparecerPata 5s linear forwards;
+    animation:aparecerPata 5s linear forwards;
 }
 
-/* =====================================================
-   BIENVENIDA
-===================================================== */
-
 #welcome{
-
     position:absolute;
-
     inset:0;
-
     display:flex;
-
     flex-direction:column;
-
     align-items:center;
-
     justify-content:center;
-
     opacity:0;
-
     transform:scale(.8);
-
-    pointer-events:none;
 }
 
 #welcome h1{
-
-    font-family:
-        'Cormorant Garamond',
-        serif;
-
-    font-size:
-        clamp(45px,10vw,80px);
-
+    font-family:'Cormorant Garamond',serif;
+    font-size:clamp(45px,10vw,80px);
     color:#f6df9c;
-
-    text-shadow:
-        0 0 10px #b98b3e,
-        0 0 25px #b98b3e,
-        0 0 50px #7d5524;
-
+    text-shadow:0 0 25px #b98b3e;
     margin:0;
-
 }
 
 #welcome p{
-
     color:#eee;
-
     font-size:17px;
-
-    margin:
-        10px 20px 25px;
-
 }
-
-/* =====================================================
-   BOTONES
-===================================================== */
 
 .gold-btn,
 .pink-btn{
-
     border:0;
-
     border-radius:999px;
-
-    padding:
-        14px 30px;
-
+    padding:14px 30px;
     font-weight:700;
-
     font-size:16px;
-
     cursor:pointer;
-
     transition:.3s;
-
 }
 
 .gold-btn{
-
-    background:
-        linear-gradient(
-            135deg,
-            #d9b45d,
-            #9e702c
-        );
-
+    background:linear-gradient(135deg,#d9b45d,#9e702c);
     color:white;
-
-    box-shadow:
-        0 8px 20px #8e682d55;
-
 }
 
 .pink-btn{
-
-    background:
-        linear-gradient(
-            135deg,
-            #eaa0b7,
-            #b85c7a
-        );
-
+    background:linear-gradient(135deg,#eaa0b7,#b85c7a);
     color:white;
-
-    box-shadow:
-        0 8px 20px #a45d7450;
-
 }
 
 .gold-btn:hover,
 .pink-btn:hover{
-
-    transform:
-        translateY(-4px)
-        scale(1.04);
-
+    transform:translateY(-4px) scale(1.04);
 }
 
-/* =====================================================
+/* =========================
    JUEGO
-===================================================== */
+========================= */
 
 #game{
-
     min-height:100vh;
-
     background:
         linear-gradient(
             #f5dcae 0%,
             #d8e9bd 45%,
             #9bc589 100%
         );
-
     position:relative;
-
 }
 
 #game:before{
-
     content:"";
-
     position:fixed;
-
     inset:0;
-
     pointer-events:none;
-
     opacity:.55;
-
     background:
-        radial-gradient(
-            circle at 20% 20%,
-            white 0 2px,
-            transparent 3px
-        ),
-        radial-gradient(
-            circle at 75% 30%,
-            white 0 2px,
-            transparent 3px
-        ),
-        radial-gradient(
-            circle at 50% 80%,
-            #fff8 0 2px,
-            transparent 3px
-        );
-
-    background-size:
-        180px 180px;
-
-    animation:
-        flotar 9s linear infinite;
-
+        radial-gradient(circle at 20% 20%,white 0 2px,transparent 3px),
+        radial-gradient(circle at 75% 30%,white 0 2px,transparent 3px),
+        radial-gradient(circle at 50% 80%,#fff8 0 2px,transparent 3px);
+    background-size:180px 180px;
+    animation:flotar 9s linear infinite;
 }
 
 .topbar{
-
     position:fixed;
-
     top:12px;
     left:12px;
     right:12px;
-
     z-index:100;
-
     display:flex;
-
     justify-content:space-between;
-
     pointer-events:none;
-
 }
 
 .topbar button{
-
     pointer-events:auto;
-
     border:0;
-
     background:#fffdf3dd;
-
     border-radius:18px;
-
     padding:10px 13px;
-
     cursor:pointer;
-
-    box-shadow:
-        0 5px 18px #6c593522;
-
+    box-shadow:0 5px 18px #6c593522;
 }
 
 .scene{
-
     min-height:100vh;
-
     display:flex;
-
     align-items:center;
-
     justify-content:center;
-
-    padding:
-        80px 18px 35px;
-
+    padding:80px 18px 35px;
 }
 
 .card{
-
-    width:
-        min(920px,100%);
-
+    width:min(920px,100%);
     background:#fffdf4ee;
-
     border-radius:35px;
-
-    padding:
-        32px 22px;
-
-    box-shadow:
-        0 22px 70px #53664240;
-
+    padding:32px 22px;
+    box-shadow:0 22px 70px #53664240;
     text-align:center;
-
-    animation:
-        entrarEscena .8s ease;
-
+    animation:entrarEscena .8s ease;
 }
 
 .title{
-
-    font-family:
-        'Cormorant Garamond',
-        serif;
-
-    font-size:
-        clamp(35px,7vw,55px);
-
+    font-family:'Cormorant Garamond',serif;
+    font-size:clamp(35px,7vw,55px);
     color:#8c4d5e;
-
-    margin:
-        5px 0 12px;
-
+    margin:5px 0 12px;
 }
 
 .text{
-
     font-size:17px;
-
     line-height:1.8;
-
 }
 
 .dialogue{
-
     max-width:700px;
-
     margin:20px auto;
-
     padding:22px;
-
     background:white;
-
-    border:
-        1px solid #ead9d0;
-
+    border:1px solid #ead9d0;
     border-radius:25px;
-
     line-height:1.75;
-
     font-size:17px;
-
-    box-shadow:
-        0 8px 25px #0000000b;
-
+    box-shadow:0 8px 25px #0000000b;
 }
 
 .cat-avatar{
-
     font-size:105px;
-
     display:inline-block;
-
-    animation:
-        respirar 2.2s infinite;
-
+    animation:respirar 2.2s infinite;
 }
 
 .small-cat{
-
     font-size:80px;
-
 }
 
 .choice-grid{
-
     display:grid;
-
-    grid-template-columns:
-        repeat(3,1fr);
-
+    grid-template-columns:repeat(3,1fr);
     gap:13px;
-
     max-width:800px;
-
     margin:22px auto;
-
 }
 
 .choice{
-
-    border:
-        1px solid #ead3ca;
-
+    border:1px solid #ead3ca;
     background:#fff;
-
     border-radius:22px;
-
     padding:20px 10px;
-
     cursor:pointer;
-
     font-size:16px;
-
     min-height:100px;
-
     transition:.3s;
-
 }
 
 .choice:hover{
-
-    transform:
-        translateY(-6px);
-
-    box-shadow:
-        0 14px 28px #76505a22;
-
+    transform:translateY(-6px);
+    box-shadow:0 14px 28px #76505a22;
 }
 
 .path{
-
     min-height:200px;
-
     border-radius:30px;
-
     padding:25px;
-
     display:flex;
-
     flex-direction:column;
-
     align-items:center;
-
     justify-content:center;
-
 }
 
 .flowers{
-
-    background:
-        linear-gradient(
-            135deg,
-            #fff0f3,
-            #dff1c8
-        );
-
+    background:linear-gradient(135deg,#fff0f3,#dff1c8);
 }
 
 .forest{
-
-    background:
-        linear-gradient(
-            135deg,
-            #dceccf,
-            #91bd9b
-        );
-
+    background:linear-gradient(135deg,#dceccf,#91bd9b);
 }
 
 .night{
-
-    background:
-        linear-gradient(
-            135deg,
-            #28234c,
-            #10192f
-        );
-
+    background:linear-gradient(135deg,#28234c,#10192f);
     color:white;
-
 }
 
 .progress{
-
     height:9px;
-
     max-width:600px;
-
     margin:12px auto;
-
     background:#eadfd7;
-
     border-radius:20px;
-
     overflow:hidden;
-
 }
 
 .progress span{
-
     display:block;
-
     width:0;
-
     height:100%;
-
     background:#c78b52;
-
     transition:.4s;
-
 }
 
-/* =====================================================
+/* =========================
    MAPA
-===================================================== */
+========================= */
 
 #map{
-
     display:grid;
-
-    grid-template-columns:
-        repeat(5,1fr);
-
+    grid-template-columns:repeat(5,1fr);
     gap:8px;
-
     max-width:750px;
-
     margin:25px auto;
-
 }
 
 .node{
-
     padding:13px 4px;
-
     border-radius:15px;
-
     background:#e6dfd5;
-
     color:#777;
-
     font-size:12px;
-
 }
 
 .node.done{
-
     background:#b9d69e;
-
     color:#35532d;
-
 }
 
 .node.open{
-
     background:#f3d59a;
-
     color:#704f24;
-
 }
 
 .node.lock{
-
     opacity:.4;
-
 }
 
-/* =====================================================
+/* =========================
    BOLSITO
-===================================================== */
+========================= */
 
 .inventory{
-
     max-width:500px;
-
     margin:20px auto;
-
     padding:20px;
-
     border-radius:25px;
-
     background:#fff7ef;
-
-    box-shadow:
-        0 10px 30px #0002;
-
+    box-shadow:0 10px 30px #0002;
 }
 
 .item{
-
     background:#fff;
-
     padding:12px;
-
     margin:7px 0;
-
     border-radius:13px;
-
 }
 
-/* =====================================================
+/* =========================
    PERSONALIZACIÓN
-===================================================== */
+========================= */
 
 .customizer{
-
     display:grid;
-
-    grid-template-columns:
-        1fr 1fr;
-
+    grid-template-columns:1fr 1fr;
     gap:20px;
-
     align-items:center;
-
 }
 
 .cat-preview{
-
     min-height:240px;
-
     display:flex;
-
     align-items:center;
-
     justify-content:center;
-
     font-size:130px;
-
     position:relative;
-
 }
 
 .accessory{
-
     position:absolute;
-
     pointer-events:none;
-
 }
 
 .bow{
-
     top:5px;
-
-    right:
-        calc(50% - 60px);
-
+    right:calc(50% - 60px);
     font-size:43px;
-
 }
 
 .shoes{
-
     bottom:25px;
-
     font-size:28px;
-
     letter-spacing:25px;
-
 }
 
 .eye-accessory{
-
     position:absolute;
-
     top:95px;
-
-    left:
-        calc(50% - 24px);
-
+    left:calc(50% - 24px);
     font-size:22px;
-
 }
 
 .options{
-
     background:#fff7f1;
-
     border-radius:25px;
-
     padding:20px;
-
     text-align:left;
-
 }
 
 .options h3{
-
     color:#8c4d5e;
-
-    font-family:
-        'Cormorant Garamond',
-        serif;
-
+    font-family:'Cormorant Garamond',serif;
     font-size:27px;
-
 }
 
 .opts{
-
     display:flex;
-
     flex-wrap:wrap;
-
     gap:8px;
-
 }
 
 .opt{
-
-    border:
-        1px solid #ead3ca;
-
+    border:1px solid #ead3ca;
     background:white;
-
     border-radius:14px;
-
     padding:10px;
-
     cursor:pointer;
-
 }
 
 .opt.selected{
-
-    outline:
-        3px solid #e0a0ae;
-
+    outline:3px solid #e0a0ae;
 }
 
-/* =====================================================
+/* =========================
    ESTRELLAS
-===================================================== */
+========================= */
 
 .stars-game{
-
     display:flex;
-
     flex-wrap:wrap;
-
     justify-content:center;
-
     gap:25px;
-
     max-width:650px;
-
     margin:25px auto;
-
 }
 
 .star{
-
     font-size:38px;
-
     cursor:pointer;
-
-    animation:
-        brillar 1s infinite alternate;
-
+    animation:brillar 1s infinite alternate;
 }
 
 .star.found{
-
     opacity:.15;
-
     transform:scale(.7);
-
     pointer-events:none;
-
 }
 
-/* =====================================================
+/* =========================
    OBJETOS
-===================================================== */
+========================= */
 
 .objects{
-
     display:grid;
-
-    grid-template-columns:
-        repeat(5,1fr);
-
+    grid-template-columns:repeat(5,1fr);
     gap:10px;
-
     max-width:600px;
-
     margin:20px auto;
-
 }
 
 .object-btn{
-
     font-size:32px;
-
     border:0;
-
     background:white;
-
     border-radius:18px;
-
     padding:15px;
-
     cursor:pointer;
-
     transition:.2s;
-
 }
 
 .object-btn:hover{
-
     transform:scale(1.1);
-
 }
 
-/* =====================================================
+/* =========================
    CARTA
-===================================================== */
+========================= */
 
 .letter-wrap{
-
     max-width:760px;
-
     margin:auto;
-
     position:relative;
-
 }
 
 .hello{
-
     position:absolute;
-
     right:0;
-
     top:-30px;
-
     font-size:60px;
-
     z-index:2;
-
 }
 
 .letter{
-
     background:#fffaf0;
-
     padding:35px 28px;
-
     border-radius:8px;
-
-    box-shadow:
-        0 15px 40px #49352a25;
-
+    box-shadow:0 15px 40px #49352a25;
     text-align:left;
-
     line-height:1.9;
-
-    font-family:
-        'Cormorant Garamond',
-        serif;
-
+    font-family:'Cormorant Garamond',serif;
     font-size:21px;
-
-    border:
-        1px solid #ead8b9;
-
+    border:1px solid #ead8b9;
 }
 
 .letter hr{
-
     border:0;
-
-    border-top:
-        1px solid #dbc9a7;
-
+    border-top:1px solid #dbc9a7;
     margin:18px 0;
-
 }
 
 .type{
-
     white-space:pre-wrap;
-
     min-height:400px;
-
 }
 
-/* =====================================================
+/* =========================
    REGALO
-===================================================== */
+========================= */
 
 .gift{
-
     display:inline-block;
-
     font-size:115px;
-
     cursor:pointer;
-
-    animation:
-        regalo 1.8s ease-in-out infinite;
-
-    filter:
-        drop-shadow(
-            0 15px 15px #8a506033
-        );
-
+    animation:regalo 1.8s ease-in-out infinite;
+    filter:drop-shadow(0 15px 15px #8a506033);
 }
 
 .confetti{
-
     position:fixed;
-
     pointer-events:none;
-
     font-size:25px;
-
-    animation:
-        confeti 2.5s linear forwards;
-
+    animation:confeti 2.5s linear forwards;
     z-index:999;
-
 }
 
-/* =====================================================
+/* =========================
    TRANSICIÓN
-===================================================== */
+========================= */
 
 #transition{
-
     position:fixed;
-
     inset:0;
-
     z-index:9000;
-
     background:#24171c;
-
     opacity:0;
-
     pointer-events:none;
-
     display:flex;
-
     align-items:center;
-
     justify-content:center;
-
     color:#ffe8a5;
-
     font-size:55px;
-
 }
 
 #transition.go{
-
-    animation:
-        transicion .8s ease;
-
+    animation:transicion .8s ease;
 }
 
-/* =====================================================
+/* =========================
    ANIMACIONES
-===================================================== */
+========================= */
 
 @keyframes cargar{
-
-    to{
-        width:100%;
-    }
-
+    to{width:100%}
 }
 
 @keyframes caminar{
-
-    from{
-        left:5%;
-    }
-
-    to{
-        left:82%;
-    }
-
+    from{left:8%}
+    to{left:82%}
 }
 
 @keyframes aparecerPata{
-
-    0%,82%{
-        opacity:0;
-    }
-
-    90%{
-        opacity:.8;
-    }
-
-    100%{
-        opacity:1;
-    }
-
-}
-
-/* ESTA ERA LA QUE FALTABA */
-
-@keyframes aparecer{
-
-    from{
-
-        opacity:0;
-
-        transform:
-            scale(.8)
-            translateY(15px);
-
-    }
-
-    to{
-
-        opacity:1;
-
-        transform:
-            scale(1)
-            translateY(0);
-
-    }
-
+    0%,85%{opacity:0}
+    100%{opacity:1}
 }
 
 @keyframes brillar{
-
     from{
-
         opacity:.35;
-
-        transform:
-            scale(.8);
-
+        transform:scale(.8);
     }
-
     to{
-
         opacity:1;
-
-        transform:
-            scale(1.25);
-
+        transform:scale(1.25);
     }
-
 }
 
 @keyframes respirar{
-
     50%{
-
-        transform:
-            translateY(-7px)
-            scale(1.03);
-
+        transform:translateY(-7px) scale(1.03);
     }
-
 }
 
 @keyframes entrarEscena{
-
     from{
-
         opacity:0;
-
-        transform:
-            translateY(30px)
-            scale(.96);
-
+        transform:translateY(30px) scale(.96);
     }
-
     to{
-
         opacity:1;
-
         transform:none;
-
     }
-
 }
 
 @keyframes flotar{
-
     to{
-
-        background-position:
-            0 180px;
-
+        background-position:0 180px;
     }
-
 }
 
 @keyframes regalo{
-
     50%{
-
-        transform:
-            scale(1.08)
-            rotate(2deg);
-
+        transform:scale(1.08) rotate(2deg);
     }
-
 }
 
 @keyframes confeti{
-
     from{
-
-        transform:
-            translateY(-10vh)
-            rotate(0);
-
+        transform:translateY(-10vh) rotate(0);
         opacity:1;
-
     }
-
     to{
-
-        transform:
-            translateY(110vh)
-            rotate(500deg);
-
+        transform:translateY(110vh) rotate(500deg);
         opacity:0;
-
     }
-
 }
 
 @keyframes transicion{
-
-    0%{
-        opacity:0;
-    }
-
-    45%{
-        opacity:1;
-    }
-
-    100%{
-        opacity:0;
-    }
-
+    0%{opacity:0}
+    45%{opacity:1}
+    100%{opacity:0}
 }
 
-/* =====================================================
+/* =========================
    MÓVIL
-===================================================== */
+========================= */
 
 @media(max-width:650px){
 
     .choice-grid,
     .customizer{
-
-        grid-template-columns:
-            1fr;
-
+        grid-template-columns:1fr;
     }
 
     .objects{
-
-        grid-template-columns:
-            repeat(3,1fr);
-
+        grid-template-columns:repeat(3,1fr);
     }
 
     #map{
-
-        grid-template-columns:
-            repeat(3,1fr);
-
+        grid-template-columns:repeat(3,1fr);
     }
 
     .cat-preview{
-
         min-height:200px;
-
     }
 
     .hello{
-
         font-size:45px;
-
     }
 
     .letter{
-
         font-size:19px;
-
-        padding:
-            25px 20px;
-
+        padding:25px 20px;
     }
-
-    .cover-paw{
-
-        font-size:22px;
-
-    }
-
 }
-
-/* =====================================================
-   FIN CSS
-===================================================== */
-
 </style>
 </head>
 
 <body>
 
-<!-- =====================================================
-     PORTADA
-===================================================== -->
+<!-- =========================
+     CARGA
+========================= -->
 
 <div id="loading">
 
-    <div class="load-wrap">
+    <div class="loading-title">
+        PREPARANDO LA AVENTURA...
+    </div>
 
-        <div class="loading-title">
-            PREPARANDO LA AVENTURA...
-        </div>
+    <div class="spark s1"></div>
+    <div class="spark s2"></div>
+    <div class="spark s3"></div>
+    <div class="spark s4"></div>
+    <div class="spark s5"></div>
 
+    <div class="load-cat">
+        <span class="pixel-cat">
+            <i class="oreja izq"></i>
+            <i class="oreja der"></i>
+            <i class="cara"></i>
+            <i class="ojo ojo1"></i>
+            <i class="ojo ojo2"></i>
+            <i class="nariz"></i>
+            <i class="cola"></i>
+        </span>
+    </div>
 
-        <!-- PATITAS -->
+    <div class="load-track">
+        <div class="load-bar"></div>
+    </div>
 
-        <div class="cover-paw paw1">🐾</div>
-        <div class="cover-paw paw2">🐾</div>
-        <div class="cover-paw paw3">🐾</div>
-        <div class="cover-paw paw4">🐾</div>
-        <div class="cover-paw paw5">🐾</div>
-        <div class="cover-paw paw6">🐾</div>
-        <div class="cover-paw paw7">🐾</div>
-        <div class="cover-paw paw8">🐾</div>
-        <div class="cover-paw paw9">🐾</div>
-        <div class="cover-paw paw10">🐾</div>
-        <div class="cover-paw paw11">🐾</div>
-        <div class="cover-paw paw12">🐾</div>
+    <div class="paw-end">
+        🐾
+    </div>
 
+    <div id="welcome">
 
-        <!-- BRILLITOS -->
+        <h1>Bienvenida al juego</h1>
 
-        <div class="spark s1"></div>
-        <div class="spark s2"></div>
-        <div class="spark s3"></div>
-        <div class="spark s4"></div>
-        <div class="spark s5"></div>
-        <div class="spark s6"></div>
-        <div class="spark s7"></div>
+        <p>
+            Una pequeña aventura hecha especialmente para ti ✨
+        </p>
 
-
-        <!-- HUELLITAS DEL CAMINO -->
-
-        <div class="load-step step1">🐾</div>
-        <div class="load-step step2">🐾</div>
-        <div class="load-step step3">🐾</div>
-        <div class="load-step step4">🐾</div>
-        <div class="load-step step5">🐾</div>
-
-
-        <!-- GATITA PIXEL -->
-
-        <div class="load-cat">
-
-            <div class="pixel-cat">
-
-                <span class="ear-left"></span>
-                <span class="ear-right"></span>
-
-                <span class="inner-left"></span>
-                <span class="inner-right"></span>
-
-                <span class="head"></span>
-
-                <span class="eye-left"></span>
-                <span class="eye-right"></span>
-
-                <span class="nose"></span>
-
-                <span class="body"></span>
-
-                <span class="leg-left"></span>
-                <span class="leg-right"></span>
-
-                <span class="tail"></span>
-
-            </div>
-
-        </div>
-
-
-        <!-- BARRA -->
-
-        <div class="load-track">
-
-            <div class="load-bar"></div>
-
-        </div>
-
-
-        <!-- PATA FINAL -->
-
-        <div class="paw-end">
-            🐾
-        </div>
-
-
-        <!-- BIENVENIDA -->
-
-        <div id="welcome">
-
-            <h1>
-                Bienvenida al juego
-            </h1>
-
-            <p>
-                Una pequeña aventura hecha especialmente para ti ✨
-            </p>
-
-            <button
-                class="gold-btn"
-                onclick="startGame()">
-
-                Continuar 🐾
-
-            </button>
-
-        </div>
+        <button class="gold-btn" onclick="startGame()">
+            Continuar 🐾
+        </button>
 
     </div>
 
 </div>
 
-
-<!-- =====================================================
-     TRANSICIÓN
-===================================================== -->
+<!-- TRANSICIÓN -->
 
 <div id="transition">
     🐾
 </div>
 
-
-<!-- =====================================================
+<!-- =========================
      JUEGO
-===================================================== -->
+========================= -->
 
 <main id="game" class="hidden">
 
@@ -1945,7 +864,6 @@ button{
         </button>
 
     </div>
-
 
     <section class="scene">
 
@@ -1966,38 +884,29 @@ button{
                 </p>
 
                 <p>
-                    Soy la gatita que va a acompañarte
-                    durante esta pequeña aventura. 🐾
+                    Soy la gatita que va a acompañarte durante
+                    esta pequeña aventura. 🐾
                 </p>
 
                 <p>
-                    Este es un
-                    <strong>
-                        juego interactivo
-                    </strong>
+                    Este es un <strong>juego interactivo</strong>
                     hecho especialmente para ti.
                 </p>
 
                 <p>
-                    Aquí podrás tomar decisiones,
-                    explorar lugares, encontrar objetos
-                    y conocer a alguien muy especial.
+                    Aquí podrás tomar decisiones, explorar lugares,
+                    encontrar objetos y conocer a alguien muy especial.
                 </p>
 
                 <p>
                     Así que piensa bien tus decisiones...
-                    porque algunas pueden cambiar
-                    lo que encuentres. 👀
+                    porque algunas pueden cambiar lo que encuentres. 👀
                 </p>
 
             </div>
 
-            <button
-                class="pink-btn"
-                onclick="gardenScene()">
-
+            <button class="pink-btn" onclick="gardenScene()">
                 Pulsa aquí para comenzar 🌸
-
             </button>
 
         </div>
@@ -2006,12 +915,11 @@ button{
 
 </main>
 
-
 <script>
 
-/* =====================================================
-   ESTADO
-===================================================== */
+/* =========================
+   ESTADO DEL JUEGO
+========================= */
 
 const state = {
 
@@ -2031,69 +939,37 @@ const state = {
 
 };
 
-
-/* =====================================================
-   INICIO DE PORTADA
-===================================================== */
+/* =========================
+   INICIO
+========================= */
 
 setTimeout(()=>{
 
-    const welcome =
-        document.getElementById("welcome");
-
-    welcome.style.animation =
+    document.getElementById("welcome").style.animation =
         "aparecer .8s ease forwards";
-
-    welcome.style.pointerEvents =
-        "auto";
 
 },5200);
 
-
-/* =====================================================
-   COMENZAR JUEGO
-===================================================== */
-
 function startGame(){
 
-    const loading =
-        document.getElementById("loading");
+    document.getElementById("loading").style.display="none";
 
-    const game =
-        document.getElementById("game");
+    document.getElementById("game").classList.remove("hidden");
 
-    loading.style.opacity="0";
-
-    loading.style.transition=
-        "opacity .5s ease";
-
-    setTimeout(()=>{
-
-        loading.style.display="none";
-
-        game.classList.remove("hidden");
-
-        window.scrollTo({
-
-            top:0,
-
-            behavior:"instant"
-
-        });
-
-    },500);
+    window.scrollTo({
+        top:0,
+        behavior:"instant"
+    });
 
 }
 
-
-/* =====================================================
+/* =========================
    TRANSICIONES
-===================================================== */
+========================= */
 
 function transition(callback){
 
-    const t =
-        document.getElementById("transition");
+    const t=document.getElementById("transition");
 
     t.classList.remove("go");
 
@@ -2101,17 +977,13 @@ function transition(callback){
 
     t.classList.add("go");
 
-    setTimeout(
-        callback,
-        400
-    );
+    setTimeout(callback,400);
 
 }
 
-
-/* =====================================================
+/* =========================
    RENDER
-===================================================== */
+========================= */
 
 function render(content){
 
@@ -2142,37 +1014,24 @@ function render(content){
 
 }
 
+/* =========================
+   BOTÓN DE SIGUIENTE
+========================= */
 
-/* =====================================================
-   BOTÓN SIGUIENTE
-===================================================== */
-
-function nextButton(
-    text,
-    func
-){
+function nextButton(text,func){
 
     return `
-
         <br>
-
-        <button
-            class="pink-btn"
-            onclick="${func}">
-
-            ${text ||
-            "Pulsa aquí para continuar 🐾"}
-
+        <button class="pink-btn" onclick="${func}">
+            ${text || "Pulsa aquí para continuar 🐾"}
         </button>
-
     `;
 
 }
 
-
-/* =====================================================
+/* =========================
    JARDÍN
-===================================================== */
+========================= */
 
 function gardenScene(){
 
@@ -2197,8 +1056,7 @@ function gardenScene(){
 
                 <p>
                     Hay flores por todas partes
-                    y unos pequeños caminos
-                    delante de ella.
+                    y unos pequeños caminos delante de ella.
                 </p>
 
             </div>
@@ -2206,8 +1064,8 @@ function gardenScene(){
             <div class="dialogue">
 
                 <p>
-                    De pronto escucha un pequeño
-                    sonido entre las flores...
+                    De pronto escucha un pequeño sonido
+                    entre las flores...
                 </p>
 
                 <p>
@@ -2220,31 +1078,22 @@ function gardenScene(){
 
             <div class="choice-grid">
 
-                <button
-                    class="choice"
+                <button class="choice"
                     onclick="gardenChoice(1)">
-
                     🌸<br>
                     Investigar las flores
-
                 </button>
 
-                <button
-                    class="choice"
+                <button class="choice"
                     onclick="gardenChoice(2)">
-
                     🐾<br>
                     Seguir las huellas
-
                 </button>
 
-                <button
-                    class="choice"
+                <button class="choice"
                     onclick="gardenChoice(3)">
-
                     🎀<br>
                     Mirar detrás del árbol
-
                 </button>
 
             </div>
@@ -2254,7 +1103,6 @@ function gardenScene(){
     });
 
 }
-
 
 function gardenChoice(n){
 
@@ -2283,10 +1131,7 @@ function gardenChoice(n){
 
     if(n===3){
 
-        addItem(
-            "🎒",
-            "Bolsito"
-        );
+        addItem("🎒","Bolsito");
 
     }
 
@@ -2309,8 +1154,7 @@ function gardenChoice(n){
                 </p>
 
                 <p>
-                    La aventura apenas
-                    está comenzando.
+                    La aventura apenas está comenzando.
                 </p>
 
             </div>
@@ -2326,10 +1170,9 @@ function gardenChoice(n){
 
 }
 
-
-/* =====================================================
-   ENCUENTRO CALICO
-===================================================== */
+/* =========================
+   ENCUENTRO
+========================= */
 
 function meetCalico(){
 
@@ -2363,10 +1206,7 @@ function meetCalico(){
                 </p>
 
                 <p>
-                    Es una
-                    <strong>
-                        gatita calico
-                    </strong>.
+                    Es una <strong>gatita calico</strong>.
                     🐈🤍🧡🖤
                 </p>
 
@@ -2384,31 +1224,22 @@ function meetCalico(){
 
             <div class="choice-grid">
 
-                <button
-                    class="choice"
+                <button class="choice"
                     onclick="calicoChoice(1)">
-
                     💗<br>
                     Saludarla
-
                 </button>
 
-                <button
-                    class="choice"
+                <button class="choice"
                     onclick="calicoChoice(2)">
-
                     🌸<br>
                     Darle una flor
-
                 </button>
 
-                <button
-                    class="choice"
+                <button class="choice"
                     onclick="calicoChoice(3)">
-
                     🐾<br>
                     Invitarla a caminar
-
                 </button>
 
             </div>
@@ -2418,7 +1249,6 @@ function meetCalico(){
     });
 
 }
-
 
 function calicoChoice(n){
 
@@ -2470,10 +1300,9 @@ function calicoChoice(n){
 
 }
 
-
-/* =====================================================
+/* =========================
    CAMINOS
-===================================================== */
+========================= */
 
 function choosePath(){
 
@@ -2488,45 +1317,35 @@ function choosePath(){
             <div class="dialogue">
 
                 <p>
-                    Las dos gatitas llegan
-                    a una bifurcación.
+                    Las dos gatitas llegan a una
+                    bifurcación.
                 </p>
 
                 <p>
                     Hay tres caminos.
-                    Cada uno parece esconder
-                    algo diferente.
+                    Cada uno parece esconder algo diferente.
                 </p>
 
             </div>
 
             <div class="choice-grid">
 
-                <button
-                    class="choice"
+                <button class="choice"
                     onclick="pathChoice(1)">
-
                     🌸<br>
                     Jardín secreto
-
                 </button>
 
-                <button
-                    class="choice"
+                <button class="choice"
                     onclick="pathChoice(2)">
-
                     🌲<br>
                     Bosque
-
                 </button>
 
-                <button
-                    class="choice"
+                <button class="choice"
                     onclick="pathChoice(3)">
-
                     ✨<br>
                     Camino de luces
-
                 </button>
 
             </div>
@@ -2536,7 +1355,6 @@ function choosePath(){
     });
 
 }
-
 
 function pathChoice(n){
 
@@ -2565,13 +1383,7 @@ function pathChoice(n){
 
         render(`
 
-            <div class="path ${
-                n===2
-                ?"forest"
-                :n===3
-                ?"night"
-                :"flowers"
-            }">
+            <div class="path ${n===2?"forest":n===3?"night":"flowers"}">
 
                 <div class="cat-avatar">
                     🐱💛 🐈
@@ -2611,10 +1423,9 @@ function pathChoice(n){
 
 }
 
-
-/* =====================================================
+/* =========================
    NOCHE
-===================================================== */
+========================= */
 
 function nightScene(){
 
@@ -2645,8 +1456,7 @@ function nightScene(){
             <div class="dialogue">
 
                 <p>
-                    La calico se sienta junto
-                    a la gatita amarilla.
+                    La calico se sienta junto a la gatita amarilla.
                 </p>
 
                 <p>
@@ -2663,31 +1473,22 @@ function nightScene(){
 
             <div class="choice-grid">
 
-                <button
-                    class="choice"
+                <button class="choice"
                     onclick="nightChoice(1)">
-
                     ⭐<br>
                     Mirar las estrellas
-
                 </button>
 
-                <button
-                    class="choice"
+                <button class="choice"
                     onclick="nightChoice(2)">
-
                     🔥<br>
                     Sentarse junto a la fogata
-
                 </button>
 
-                <button
-                    class="choice"
+                <button class="choice"
                     onclick="nightChoice(3)">
-
                     🌸<br>
                     Hablar del jardín
-
                 </button>
 
             </div>
@@ -2697,7 +1498,6 @@ function nightScene(){
     });
 
 }
-
 
 function nightChoice(n){
 
@@ -2755,10 +1555,9 @@ function nightChoice(n){
 
 }
 
-
-/* =====================================================
+/* =========================
    ESTRELLAS
-===================================================== */
+========================= */
 
 function starGame(){
 
@@ -2783,32 +1582,27 @@ function starGame(){
 
             <div class="stars-game">
 
-                <span
-                    class="star"
+                <span class="star"
                     onclick="foundStar(this)">
                     ⭐
                 </span>
 
-                <span
-                    class="star"
+                <span class="star"
                     onclick="foundStar(this)">
                     ✨
                 </span>
 
-                <span
-                    class="star"
+                <span class="star"
                     onclick="foundStar(this)">
                     ⭐
                 </span>
 
-                <span
-                    class="star"
+                <span class="star"
                     onclick="foundStar(this)">
                     ✨
                 </span>
 
-                <span
-                    class="star"
+                <span class="star"
                     onclick="foundStar(this)">
                     ⭐
                 </span>
@@ -2825,37 +1619,23 @@ function starGame(){
 
 }
 
-
 function foundStar(el){
 
-    if(
-        el.classList.contains("found")
-    ) return;
+    if(el.classList.contains("found")) return;
 
     el.classList.add("found");
 
     state.stars++;
 
-    document.getElementById(
-        "starMsg"
-    ).textContent=
-        "Encontradas: "+
-        state.stars+
-        "/5";
+    document.getElementById("starMsg").textContent=
+        "Encontradas: "+state.stars+"/5";
 
-    document.getElementById(
-        "starBar"
-    ).style.width=
+    document.getElementById("starBar").style.width=
         (state.stars*20)+"%";
 
-    if(
-        state.stars===5
-    ){
+    if(state.stars===5){
 
-        addItem(
-            "⭐",
-            "Estrella especial"
-        );
+        addItem("⭐","Estrella especial");
 
         setTimeout(()=>{
 
@@ -2874,8 +1654,8 @@ function foundStar(el){
                     <div class="dialogue">
 
                         <p>
-                            Las cinco estrellas
-                            se juntan en el cielo.
+                            Las cinco estrellas se juntan
+                            en el cielo.
                         </p>
 
                         <p>
@@ -2906,10 +1686,9 @@ function foundStar(el){
 
 }
 
-
-/* =====================================================
+/* =========================
    MAPA
-===================================================== */
+========================= */
 
 function showMap(){
 
@@ -2924,38 +1703,31 @@ function showMap(){
             <div id="map">
 
                 <div class="node done">
-                    🌷<br>
-                    Jardín
+                    🌷<br>Jardín
                 </div>
 
                 <div class="node done">
-                    🐾<br>
-                    Encuentro
+                    🐾<br>Encuentro
                 </div>
 
                 <div class="node done">
-                    ⭐<br>
-                    Estrellas
+                    ⭐<br>Estrellas
                 </div>
 
                 <div class="node open">
-                    🌲<br>
-                    Bosque
+                    🌲<br>Bosque
                 </div>
 
                 <div class="node open">
-                    🌊<br>
-                    Lago
+                    🌊<br>Lago
                 </div>
 
                 <div class="node lock">
-                    🏡<br>
-                    Casita
+                    🏡<br>Casita
                 </div>
 
                 <div class="node lock">
-                    🎀<br>
-                    Secreto
+                    🎀<br>Secreto
                 </div>
 
             </div>
@@ -2984,10 +1756,9 @@ function showMap(){
 
 }
 
-
-/* =====================================================
+/* =========================
    BOSQUE
-===================================================== */
+========================= */
 
 function forestScene(){
 
@@ -3014,8 +1785,7 @@ function forestScene(){
             <div class="dialogue">
 
                 <p>
-                    Frente a ellas aparecen
-                    tres senderos.
+                    Frente a ellas aparecen tres senderos.
                 </p>
 
                 <p>
@@ -3033,31 +1803,22 @@ function forestScene(){
 
             <div class="choice-grid">
 
-                <button
-                    class="choice"
+                <button class="choice"
                     onclick="forestChoice(1)">
-
                     🌿<br>
                     Izquierda
-
                 </button>
 
-                <button
-                    class="choice"
+                <button class="choice"
                     onclick="forestChoice(2)">
-
                     🌙<br>
                     Centro
-
                 </button>
 
-                <button
-                    class="choice"
+                <button class="choice"
                     onclick="forestChoice(3)">
-
                     🍃<br>
                     Derecha
-
                 </button>
 
             </div>
@@ -3068,69 +1829,45 @@ function forestScene(){
 
 }
 
-
 function forestChoice(n){
 
-    const correct =
-        n===2;
+    const correct=n===2;
 
     transition(()=>{
 
         render(`
 
             <div class="cat-avatar">
-
-                ${
-                    correct
-                    ?"🐱💛 🐈✨"
-                    :"🐱💛 🐈"
-                }
-
+                ${correct?"🐱💛 🐈✨":"🐱💛 🐈"}
             </div>
 
             <h1 class="title">
-
-                ${
-                    correct
-                    ?"¡Camino correcto!"
-                    :"Hmm... por aquí no era"
-                }
-
+                ${correct?"¡Camino correcto!":"Hmm... por aquí no era"}
             </h1>
 
             <div class="dialogue">
 
                 <p>
-
                     ${
                         correct
-
                         ?
-
                         "El camino del centro está iluminado por la luna. Las dos gatitas continúan juntas."
-
                         :
-
                         "Las hojas terminan en un pequeño callejón. Las dos se miran y se ríen. Mejor intentemos otra vez."
-
                     }
-
                 </p>
 
             </div>
 
-            <button
-                class="pink-btn"
-                onclick="${
-                    correct
-                    ?"lakeScene()"
-                    :"forestScene()"
-                }">
+            <button class="pink-btn"
+                onclick="${correct?"lakeScene()":"forestScene()"}">
 
                 ${
                     correct
-                    ?"Continuar 🌊"
-                    :"Intentarlo otra vez 🐾"
+                    ?
+                    "Continuar 🌊"
+                    :
+                    "Intentarlo otra vez 🐾"
                 }
 
             </button>
@@ -3141,10 +1878,9 @@ function forestChoice(n){
 
 }
 
-
-/* =====================================================
+/* =========================
    LAGO
-===================================================== */
+========================= */
 
 function lakeScene(){
 
@@ -3180,8 +1916,7 @@ function lakeScene(){
                 </p>
 
                 <p>
-                    Por un momento todo queda
-                    en silencio.
+                    Por un momento todo queda en silencio.
                 </p>
 
             </div>
@@ -3197,10 +1932,9 @@ function lakeScene(){
 
 }
 
-
-/* =====================================================
+/* =========================
    REGALO
-===================================================== */
+========================= */
 
 function giftScene(){
 
@@ -3215,8 +1949,7 @@ function giftScene(){
             <div class="dialogue">
 
                 <p>
-                    La gatita amarilla mira
-                    su bolsito.
+                    La gatita amarilla mira su bolsito.
                 </p>
 
                 <p>
@@ -3234,31 +1967,22 @@ function giftScene(){
 
             <div class="choice-grid">
 
-                <button
-                    class="choice"
+                <button class="choice"
                     onclick="giveGift('🌸')">
-
                     🌸<br>
                     Una flor
-
                 </button>
 
-                <button
-                    class="choice"
+                <button class="choice"
                     onclick="giveGift('⭐')">
-
                     ⭐<br>
                     Una estrella
-
                 </button>
 
-                <button
-                    class="choice"
+                <button class="choice"
                     onclick="giveGift('💗')">
-
                     💗<br>
                     Un corazón
-
                 </button>
 
             </div>
@@ -3269,17 +1993,13 @@ function giftScene(){
 
 }
 
-
 function giveGift(icon){
 
     state.gift=icon;
 
     state.friendship+=15;
 
-    addItem(
-        icon,
-        "Regalo para la calico"
-    );
+    addItem(icon,"Regalo para la calico");
 
     transition(()=>{
 
@@ -3325,10 +2045,9 @@ function giveGift(icon){
 
 }
 
-
-/* =====================================================
+/* =========================
    CASITA
-===================================================== */
+========================= */
 
 function houseScene(){
 
@@ -3360,32 +2079,27 @@ function houseScene(){
 
             <div class="objects">
 
-                <button
-                    class="object-btn"
+                <button class="object-btn"
                     onclick="inspect('📚')">
                     📚
                 </button>
 
-                <button
-                    class="object-btn"
+                <button class="object-btn"
                     onclick="inspect('🕯️')">
                     🕯️
                 </button>
 
-                <button
-                    class="object-btn"
+                <button class="object-btn"
                     onclick="inspect('🖼️')">
                     🖼️
                 </button>
 
-                <button
-                    class="object-btn"
+                <button class="object-btn"
                     onclick="inspect('🎁')">
                     🎁
                 </button>
 
-                <button
-                    class="object-btn"
+                <button class="object-btn"
                     onclick="inspect('🗝️')">
                     🗝️
                 </button>
@@ -3397,7 +2111,6 @@ function houseScene(){
     });
 
 }
-
 
 function inspect(icon){
 
@@ -3451,10 +2164,9 @@ function inspect(icon){
 
 }
 
-
-/* =====================================================
+/* =========================
    CARTA MISTERIOSA
-===================================================== */
+========================= */
 
 function letterMystery(){
 
@@ -3513,10 +2225,9 @@ function letterMystery(){
 
 }
 
-
-/* =====================================================
+/* =========================
    LUGAR SECRETO
-===================================================== */
+========================= */
 
 function secretPlace(){
 
@@ -3550,8 +2261,7 @@ function secretPlace(){
 
                 <p>
                     <strong>
-                        Una cajita rosa
-                        con un gran moño. 🎀
+                        Una cajita rosa con un gran moño. 🎀
                     </strong>
                 </p>
 
@@ -3568,10 +2278,9 @@ function secretPlace(){
 
 }
 
-
-/* =====================================================
+/* =========================
    CAJITA FINAL
-===================================================== */
+========================= */
 
 function giftBox(){
 
@@ -3596,12 +2305,9 @@ function giftBox(){
 
             </div>
 
-            <div
-                class="gift"
+            <div class="gift"
                 onclick="openGift()">
-
                 🎁
-
             </div>
 
             <p>
@@ -3616,52 +2322,39 @@ function giftBox(){
 
 }
 
-
-/* =====================================================
+/* =========================
    ABRIR REGALO
-===================================================== */
+========================= */
 
 function openGift(){
 
-    for(
-        let i=0;
-        i<30;
-        i++
-    ){
+    for(let i=0;i<30;i++){
 
-        const c =
-            document.createElement("span");
+        const c=document.createElement("span");
 
-        c.className =
-            "confetti";
+        c.className="confetti";
 
         c.textContent=[
-
             "💗",
             "✨",
             "🎀",
             "🌸",
             "🐾"
-
         ][i%5];
 
-        c.style.left =
+        c.style.left=
             Math.random()*100+"vw";
 
-        c.style.top =
-            "-30px";
+        c.style.top="-30px";
 
-        c.style.animationDelay =
+        c.style.animationDelay=
             Math.random()*.8+"s";
 
         document.body.appendChild(c);
 
-        setTimeout(
-            ()=>{
-                c.remove();
-            },
-            3200
-        );
+        setTimeout(()=>{
+            c.remove();
+        },3200);
 
     }
 
@@ -3675,10 +2368,9 @@ function openGift(){
 
 }
 
-
-/* =====================================================
+/* =========================
    CARTA FINAL
-===================================================== */
+========================= */
 
 function finalLetter(){
 
@@ -3731,10 +2423,7 @@ A veces, las historias más bonitas comienzan con algo tan sencillo como querer 
 
                 <br>
 
-                <div
-                    style="
-                    text-align:right;
-                    ">
+                <div style="text-align:right">
 
                     <strong>
                         P.D. Los gatitos son lo mejor. 🐱💗
@@ -3756,19 +2445,13 @@ A veces, las historias más bonitas comienzan con algo tan sencillo como querer 
 
 }
 
+/* =========================
+   ESCRITURA
+========================= */
 
-/* =====================================================
-   EFECTO ESCRITURA
-===================================================== */
+function typeWriter(text,id,speed){
 
-function typeWriter(
-    text,
-    id,
-    speed
-){
-
-    const el =
-        document.getElementById(id);
+    const el=document.getElementById(id);
 
     let i=0;
 
@@ -3776,19 +2459,15 @@ function typeWriter(
 
         if(i<text.length){
 
-            el.textContent +=
-                text[i];
+            el.textContent+=text[i];
 
             i++;
 
             setTimeout(
-
                 write,
-
                 text[i-1]==="\n"
                     ?500
                     :speed
-
             );
 
         }else{
@@ -3806,10 +2485,9 @@ function typeWriter(
 
 }
 
-
-/* =====================================================
+/* =========================
    FINAL
-===================================================== */
+========================= */
 
 function finalScene(){
 
@@ -3850,11 +2528,10 @@ function finalScene(){
                 font-size:28px;
                 color:#8c4d5e;
                 margin-top:30px;
-                ">
-
+                "
+            >
                 He creado esto para ti
                 porque me gustas mucho. ♡
-
             </p>
 
         `);
@@ -3863,25 +2540,18 @@ function finalScene(){
 
 }
 
-
-/* =====================================================
+/* =========================
    BOLSITO
-===================================================== */
+========================= */
 
-function addItem(
-    icon,
-    name
-){
+function addItem(icon,name){
 
     state.inventory.push({
-
         icon:icon,
         name:name
-
     });
 
 }
-
 
 function showInventory(){
 
@@ -3891,31 +2561,24 @@ function showInventory(){
 
         ?
 
-        state.inventory
-            .map(item=>`
+        state.inventory.map(item=>`
 
-                <div class="item">
+            <div class="item">
 
-                    ${item.icon}
+                ${item.icon}
+                <strong>
+                    ${item.name}
+                </strong>
 
-                    <strong>
-                        ${item.name}
-                    </strong>
+            </div>
 
-                </div>
-
-            `)
-            .join("")
+        `).join("")
 
         :
 
-        `
-
-        <p>
+        `<p>
             Tu bolsito todavía está vacío. 🐾
-        </p>
-
-        `;
+        </p>`;
 
     render(`
 
