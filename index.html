@@ -579,12 +579,322 @@ function abrirBolso() {
 function comenzar() {
 
     alert(
-        "🐱💛 La aventura está a punto de comenzar..."
+        function comenzar() {
+
+    const panel = document.querySelector(".panel");
+
+    panel.innerHTML = `
+
+        <div class="gato">
+            🐱
+        </div>
+
+        <div class="nombre-gato">
+            Gatito amarillo 💛
+        </div>
+
+        <div class="burbuja">
+
+            <h2 class="titulo">
+                🌷 El jardín
+            </h2>
+
+            <p>
+                Después de caminar durante un rato,
+                el pequeño gatito llega a un jardín
+                lleno de flores.
+            </p>
+
+            <p>
+                El viento mueve suavemente las hojas
+                y, entre los árboles, parece haber
+                algo que llama su atención...
+            </p>
+
+            <p>
+                🐾 ¿Qué debería hacer?
+            </p>
+
+        </div>
+
+        <button class="boton" onclick="eleccionJardin('flores')">
+            🌸 Acercarse a las flores
+        </button>
+
+        <button class="boton" onclick="eleccionJardin('arbol')">
+            🌳 Investigar el árbol
+        </button>
+
+        <button class="boton" onclick="eleccionJardin('camino')">
+            🐾 Seguir el caminito
+        </button>
+
+    `;
+
+            }
+
+</script>
+function eleccionJardin(opcion) {
+
+    const panel = document.querySelector(".panel");
+
+    let titulo = "";
+    let texto = "";
+    let emoji = "";
+
+    if (opcion === "flores") {
+
+        emoji = "🌸🐱";
+        titulo = "Las flores...";
+        texto = `
+            El gatito se acerca cuidadosamente.
+            Entre las flores encuentra algo pequeño
+            y brillante.
+            <br><br>
+            ✨ ¡Has encontrado una estrellita!
+        `;
+
+    }
+
+    if (opcion === "arbol") {
+
+        emoji = "🌳🐱";
+        titulo = "El viejo árbol";
+        texto = `
+            El gatito mira hacia arriba y descubre
+            unas pequeñas huellas dibujadas en el
+            tronco.
+            <br><br>
+            🐾 Alguien estuvo aquí antes...
+        `;
+
+    }
+
+    if (opcion === "camino") {
+
+        emoji = "🐱🐾";
+        titulo = "El caminito";
+        texto = `
+            El gatito decide seguir las pequeñas
+            huellas que aparecen sobre la tierra.
+            <br><br>
+            Parece que conducen hacia alguna parte.
+            👀
+        `;
+
+    }
+
+    panel.innerHTML = `
+
+        <div class="gato">
+            ${emoji}
+        </div>
+
+        <div class="burbuja">
+
+            <h2 class="titulo">
+                ${titulo}
+            </h2>
+
+            <p>
+                ${texto}
+            </p>
+
+        </div>
+
+        <button class="boton" onclick="siguienteEscena()">
+            🐾 Continuar aventura
+        </button>
+
+    `;
+
+}
+
+
+function siguienteEscena() {
+
+    const panel = document.querySelector(".panel");
+
+    panel.innerHTML = `
+
+        <div class="gato">
+            🐱💛
+        </div>
+
+        <div class="burbuja">
+
+            <h2 class="titulo">
+                👀 ¿Qué es eso?
+            </h2>
+
+            <p>
+                El gatito continúa avanzando por el
+                jardín...
+            </p>
+
+            <p>
+                De repente escucha un pequeño ruido
+                detrás de unos arbustos.
+            </p>
+
+            <p>
+                <strong>
+                    Parece que hay alguien ahí.
+                </strong>
+            </p>
+
+        </div>
+
+        <button class="boton" onclick="aparecerGatita()">
+            🌿 Investigar
+        </button>
+
+    `;
+
+}
+
+
+function aparecerGatita() {
+
+    const panel = document.querySelector(".panel");
+
+    panel.innerHTML = `
+
+        <div class="gato">
+            🐱💛 🐈
+        </div>
+
+        <div class="burbuja">
+
+            <h2 class="titulo">
+                🐾 ¡Encontraste a alguien!
+            </h2>
+
+            <p>
+                Entre los arbustos aparece una
+                pequeña gatita calico.
+            </p>
+
+            <p>
+                Parece un poquito confundida...
+                pero también bastante curiosa. 👀
+            </p>
+
+            <p>
+                El gatito amarillo la mira.
+            </p>
+
+            <p>
+                Y ahora tienes que decidir qué hacer.
+            </p>
+
+        </div>
+
+        <button class="boton" onclick="saludar()">
+            👋 Saludarla
+        </button>
+
+        <button class="boton" onclick="acercarse()">
+            🐾 Acercarse despacito
+        </button>
+
+    `;
+
+}
+
+
+function saludar() {
+
+    mostrarRespuesta(
+        "👋 Un saludo inesperado",
+        "El gatito levanta una patita y la saluda. La gatita calico se queda mirándolo durante unos segundos... y finalmente sonríe. 🐈💕"
     );
 
 }
 
-</script>
 
+function acercarse() {
+
+    mostrarRespuesta(
+        "🐾 Un poquito más cerca",
+        "El gatito se acerca despacio para no asustarla. La gatita calico lo observa con curiosidad y mueve suavemente su colita."
+    );
+
+}
+
+
+function mostrarRespuesta(titulo, texto) {
+
+    const panel = document.querySelector(".panel");
+
+    panel.innerHTML = `
+
+        <div class="gato">
+            🐱💛 🐈
+        </div>
+
+        <div class="burbuja">
+
+            <h2 class="titulo">
+                ${titulo}
+            </h2>
+
+            <p>
+                ${texto}
+            </p>
+
+        </div>
+
+        <button class="boton" onclick="continuarConGatita()">
+            💕 Seguir
+        </button>
+
+    `;
+
+}
+
+
+function continuarConGatita() {
+
+    const panel = document.querySelector(".panel");
+
+    panel.innerHTML = `
+
+        <div class="gato">
+            🐱💛 🐈
+        </div>
+
+        <div class="burbuja">
+
+            <h2 class="titulo">
+                🌷 Una nueva compañía
+            </h2>
+
+            <p>
+                Quizá esta aventura sea mucho más
+                interesante de lo que el gatito
+                imaginaba...
+            </p>
+
+            <p>
+                Pero todavía queda muchísimo por
+                descubrir.
+            </p>
+
+            <p>
+                <strong>
+                    Y esta vez no tendrá que hacerlo solo.
+                </strong>
+            </p>
+
+        </div>
+
+        <button class="boton" onclick="continuarConGatita()">
+            🐾 Continuar
+        </button>
+
+    `;
+
+}
 </body>
   </html>
